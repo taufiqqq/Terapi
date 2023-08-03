@@ -1,0 +1,1 @@
+Define your data models (like User, Appointment, etc.) in this directory.
