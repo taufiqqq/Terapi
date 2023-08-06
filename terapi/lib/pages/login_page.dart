@@ -87,25 +87,31 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Positioned(
-                left: 434,
-                top: 163,
-                child: Container(
-                  width: 195,
-                  height: 122,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: Image.asset('assets/img/logo.png').image,
-                      fit: BoxFit.cover,
-                    ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: const Text(
+                  'Welcome to ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontFamily: 'Sans',
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
-              const Text(
-                'TAUFIQ\nLOGIN',
-                style: TextStyle(fontSize: 50),
+              Container(
+                width: 195,
+                height: 122,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('lib/assets/img/logo.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               TextField(
                 controller: _emailController,
