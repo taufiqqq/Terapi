@@ -69,40 +69,67 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'LOGIN',
-              style: TextStyle(fontSize: 50),
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                hintText: "User Email",
-                prefixIcon: Icon(Icons.mail),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        clipBehavior: Clip.antiAlias,
+        decoration: ShapeDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment(1, 0),
+            end: Alignment(1, 1),
+            colors: [Color(0xFFF1F6FA), Color(0xF259ABF7), Color(0xFF0067C7)],
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Positioned(
+                left: 434,
+                top: 163,
+                child: Container(
+                  width: 195,
+                  height: 122,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: Image.asset('assets/img/logo.png').image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                hintText: "User Password",
-                prefixIcon: Icon(Icons.lock),
+              const Text(
+                'TAUFIQ\nLOGIN',
+                style: TextStyle(fontSize: 50),
               ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _handleLogin,
-              child: const Text('Login'),
-            ),
-          ],
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  hintText: "User Email",
+                  prefixIcon: Icon(Icons.mail),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  hintText: "User Password",
+                  prefixIcon: Icon(Icons.lock),
+                ),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: _handleLogin,
+                child: const Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
     );
