@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "251377269349",
-    "project_id": "terapi-flutter",
-    "storage_bucket": "terapi-flutter.appspot.com"
+    "project_number": "609485106411",
+    "project_id": "armech-intern",
+    "storage_bucket": "armech-intern.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:251377269349:android:e9789c974029bc6f5ae48c",
+        "mobilesdk_app_id": "1:609485106411:android:ef700dd0309c3a22c2e2ae",
         "android_client_info": {
-          "package_name": "com.tawn.terapi"
+          "package_name": "com.taufiq.terapi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "251377269349-dii7tvm3qbu2jtnh2jfpc7uhra84q61g.apps.googleusercontent.com",
+          "client_id": "609485106411-12pol20it9apbd1vn4qrlke8qf8b4qpa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA46PHWkXeJ5c4kpozRGSH1wceosKeJDdw"
+          "current_key": "AIzaSyC592NhwGgEkl5Vl8O-CffCN_s50EC5uYo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "251377269349-dii7tvm3qbu2jtnh2jfpc7uhra84q61g.apps.googleusercontent.com",
+              "client_id": "609485106411-12pol20it9apbd1vn4qrlke8qf8b4qpa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

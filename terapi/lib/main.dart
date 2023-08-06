@@ -15,7 +15,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<FirebaseApp> _initializeFirebase() async {
-    print("nice");
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
   }
