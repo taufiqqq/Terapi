@@ -3,10 +3,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:terapi/pages/signup_page.dart';
 
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String id = 'login';
   const LoginPage({super.key});
 
   @override
@@ -38,6 +42,69 @@ class _LoginPageState extends State<LoginPage> {
     return user;
   }
 
+  Future<void> _handleGoogleSignIn() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return; // User cancelled the sign-in process
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        print("Google Sign-In successful!");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+        );
+      } else {
+        print("Google Sign-In failed");
+      }
+    } catch (e) {
+      print("Error occurred during Google Sign-In: $e");
+    }
+  }
+
+  Future<void> _handleFacebookSignIn() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final AccessToken accessToken = result.accessToken!;
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(accessToken.token);
+
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        final User? user = userCredential.user;
+
+        if (user != null) {
+          print("Facebook Sign-In successful!");
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        } else {
+          print("Facebook Sign-In failed");
+        }
+      } else {
+        print("Facebook Sign-In failed: ${result.status}");
+      }
+    } catch (e) {
+      print("Error occurred during Facebook Sign-In: $e");
+    }
+  }
+
   void _handleLogin() async {
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
@@ -67,9 +134,52 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _handleForgotPassword() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Forgot Password"),
+          content: TextField(
+            controller: _emailController,
+            decoration: const InputDecoration(hintText: "Enter your email"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final String email = _emailController.text.trim();
+                if (EmailValidator.validate(email)) {
+                  try {
+                    await FirebaseAuth.instance
+                        .sendPasswordResetEmail(email: email);
+                    print("Password reset email sent successfully");
+                  } catch (e) {
+                    print("Error sending password reset email: $e");
+                  }
+                } else {
+                  print("Invalid email format");
+                }
+                Navigator.pop(
+                    context); // Close the dialog after handling the password reset
+              },
+              child: const Text("Send Email"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -116,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
               TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
-                  hintText: "User Email",
+                  hintText: "Email",
                   prefixIcon: Icon(Icons.mail),
                 ),
               ),
@@ -125,14 +235,68 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  hintText: "User Password",
+                  hintText: "Password",
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: _handleLogin,
-                child: const Text('Login'),
+              Container(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: _handleForgotPassword,
+                  child: const Text('Forgot Password?'),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: _handleLogin,
+                      child: const Text('Login'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 100),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: _handleGoogleSignIn,
+                    child: Image.asset('lib/assets/img/google.png',
+                        width: 24, height: 24),
+                    // Adjust the width and height to fit your image size
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: _handleFacebookSignIn,
+                    child: Image.asset('lib/assets/img/facebook.png',
+                        width: 24, height: 24),
+                    // Adjust the width and height to fit your image size
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Don\'t have an account?',
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, SignUp.id);
+                    },
+                    child: const Text(
+                      ' Sign Up',
+                      style: TextStyle(
+                        
+                          fontSize: 15.0,
+                          color: Color.fromARGB(255, 0, 62, 113)),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
