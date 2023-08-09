@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:terapi/pages/signup_page.dart';
 
 import 'home_page.dart';
@@ -71,37 +70,6 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       print("Error occurred during Google Sign-In: $e");
-    }
-  }
-
-  Future<void> _handleFacebookSignIn() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        final AccessToken accessToken = result.accessToken!;
-        final AuthCredential credential =
-            FacebookAuthProvider.credential(accessToken.token);
-
-        final UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        final User? user = userCredential.user;
-
-        if (user != null) {
-          print("Facebook Sign-In successful!");
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomePage(),
-            ),
-          );
-        } else {
-          print("Facebook Sign-In failed");
-        }
-      } else {
-        print("Facebook Sign-In failed: ${result.status}");
-      }
-    } catch (e) {
-      print("Error occurred during Facebook Sign-In: $e");
     }
   }
 
@@ -259,23 +227,11 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               const SizedBox(height: 100),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: _handleGoogleSignIn,
-                    child: Image.asset('lib/assets/img/google.png',
-                        width: 24, height: 24),
-                    // Adjust the width and height to fit your image size
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: _handleFacebookSignIn,
-                    child: Image.asset('lib/assets/img/facebook.png',
-                        width: 24, height: 24),
-                    // Adjust the width and height to fit your image size
-                  ),
-                ],
+              ElevatedButton(
+                onPressed: _handleGoogleSignIn,
+                child: Image.asset('lib/assets/img/google.png',
+                    width: 24, height: 24),
+                // Adjust the width and height to fit your image size
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -291,7 +247,6 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text(
                       ' Sign Up',
                       style: TextStyle(
-                        
                           fontSize: 15.0,
                           color: Color.fromARGB(255, 0, 62, 113)),
                     ),
