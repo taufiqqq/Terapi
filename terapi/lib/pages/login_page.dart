@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:terapi/pages/signup_page.dart';
+import 'package:terapi/pages/user/signup_page.dart';
 
-import 'home_page.dart';
+import 'user/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'login';
