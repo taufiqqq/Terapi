@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/chat_page.dart';
 
-import 'logout_page.dart';
+import '../user/logout_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
