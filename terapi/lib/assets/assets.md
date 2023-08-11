@@ -1,1 +1,0 @@
-Place your app's assets, such as images, fonts, or other resources, in this directory.

@@ -1,1 +1,0 @@
-Utility functions, helper classes, and constants can be placed here.

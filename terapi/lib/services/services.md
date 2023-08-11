@@ -1,1 +1,0 @@
-This directory holds the services responsible for database interaction, AI integration, and other external API calls.

@@ -1,1 +1,0 @@
-Configuration files, such as Firebase configuration, can go here.
