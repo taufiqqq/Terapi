@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:terapi/pages/login_page.dart';
 import 'package:terapi/pages/user/home_page.dart';
+import 'package:terapi/providers/chat_providers.dart';
+import 'package:terapi/providers/models_provider.dart';
+import 'package:terapi/widgets/widget_tree.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,16 +19,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Terapi',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF0A84FF)),
-        useMaterial3: true,
-      ),
-      // No need to set initialRoute or routes in this case
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ModelsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ChatProvider(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Terapi',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF0A84FF)),
+          useMaterial3: true,
+        ),
+        // No need to set initialRoute or routes in this case
 
-      debugShowCheckedModeBanner: false,
-      home: AuthChecker(), // Use AuthChecker as the home widget
+        debugShowCheckedModeBanner: false,
+        home: AuthChecker(), // Use AuthChecker as the home widget
+      ),
     );
   }
 }
@@ -50,7 +64,7 @@ class _AuthCheckerState extends State<AuthChecker> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data != null) {
-            return const HomePage();
+            return const WidgetTree();
           } else {
             // User is not logged in, show LoginPage
             return const LoginPage();

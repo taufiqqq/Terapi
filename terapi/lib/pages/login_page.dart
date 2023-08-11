@@ -6,6 +6,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/signup_page.dart';
 
+import '../widgets/widget_tree.dart';
 import 'user/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -71,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const WidgetTree(),
           ),
         );
       } else {
@@ -98,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const WidgetTree(),
           ),
         );
       } else {

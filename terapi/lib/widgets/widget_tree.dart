@@ -33,16 +33,16 @@ class _WidgetTreeState extends State<WidgetTree> {
             topLeft: Radius.circular(25),
             topRight: Radius.circular(25),
           ),
-          color: Colors.grey.shade300,
+          color: Color.fromARGB(141, 0, 183, 255),
         ),
         child: NavigationBarTheme(
           data: const NavigationBarThemeData(indicatorColor: Colors.white),
           child: NavigationBar(
             backgroundColor:
-                Colors.transparent, // Set the background color to transparent
+                Color.fromARGB(0, 27, 152, 255), // Set the background color to transparent
             destinations: [
               const NavigationDestination(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home_outlined),
                 label: 'Home',
               ),
               NavigationDestination(
@@ -54,11 +54,11 @@ class _WidgetTreeState extends State<WidgetTree> {
                 label: 'Chat',
               ),
               NavigationDestination(
-                icon: Icon(Icons.home),
-                label: 'Home',
+                icon: Icon(Icons.video_call_outlined),
+                label: 'Appointment',
               ),
               NavigationDestination(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person_outlined),
                 label: 'Profile',
               ),
             ],
