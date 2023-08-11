@@ -62,20 +62,6 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    
-    flavorDimensions "environment"
-    
-    productFlavors {
-        dev {
-            dimension "environment"
-        }
-        staging {
-            dimension "environment"
-        }
-        prod {
-            dimension "environment"
-        }
-    }
 
 
 }
