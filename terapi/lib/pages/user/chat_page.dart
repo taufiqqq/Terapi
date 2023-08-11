@@ -29,7 +29,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         body: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Center(
@@ -48,59 +48,45 @@ class _ChatPageState extends State<ChatPage> {
                 },
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
 
             GestureDetector(
-              child: Container(
-                margin: EdgeInsets.only(top: 30),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(color: Colors.grey.withOpacity(0.5))
-                ]),
-                child: Column(children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const GPTScreen(),
-                            ));
-                      },
-                      child: Container(
-                        height: 40,
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(35),
-                              child: Image.asset(
-                                "lib/assets/img/TERAPI.png",
-                                height: 100,
-                                width: 100,
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "AI",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+              onTap: () {
+                // Add the action you want to perform when the ListTile is tapped
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const GPTScreen();
+                    }, // Replace with your destination screen
+                  ),
+                );
+              },
+              child: const ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                  radius: 30,
+                ),
+                title: Text(
+                  "Therapist ChatBot",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Row(
+                  children: [
+                    Icon(
+                      Icons.done_all,
                     ),
-                  )
-                ]),
+                    Text(
+                      "Chat With Me",
+                      style: TextStyle(fontSize: 13),
+                    )
+                  ],
+                ),
+                trailing: Icon(Icons.push_pin),
               ),
-            ),
+            )
             // Other widgets you want to include in the ListView
           ],
         ),
