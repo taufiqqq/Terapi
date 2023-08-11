@@ -1,51 +1,64 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:terapi/pages/login_page.dart';
-import 'package:terapi/pages/signup_page.dart';
+import 'package:terapi/pages/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  Future<FirebaseApp> _initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    return firebaseApp;
-  }
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Terapi',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF0A84FF)),
         useMaterial3: true,
       ),
-      initialRoute: LoginPage.id,
-      routes: {
-        LoginPage.id: (context) => const LoginPage(), // Your LoginPage route
-        SignUp.id: (context) => SignUp(), // SignUp route with unique id
-        // Add more routes here if needed
-      },
+      // No need to set initialRoute or routes in this case
+
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
-        future: _initializeFirebase(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return const LoginPage();
+      home: AuthChecker(), // Use AuthChecker as the home widget
+    );
+  }
+}
+
+class AuthChecker extends StatefulWidget {
+  @override
+  _AuthCheckerState createState() => _AuthCheckerState();
+}
+
+class _AuthCheckerState extends State<AuthChecker> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    // Add any other initialization code here if needed
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<User?>(
+      future: _auth.authStateChanges().first,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.data != null) {
+            return const HomePage();
           } else {
-            return const Center(child: CircularProgressIndicator());
+            // User is not logged in, show LoginPage
+            return const LoginPage();
           }
-        },
-      ),
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

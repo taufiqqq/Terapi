@@ -20,6 +20,12 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    // Check if the user is already logged in
+  }
+
   static Future<User?> loginUsingEmailPassword(
       {required String email,
       required String password,
@@ -43,8 +49,10 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _handleGoogleSignIn() async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) return; // User cancelled the sign-in process
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) return;
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -59,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (user != null) {
         print("Google Sign-In successful!");
+        print("User email: ${user.email}");
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
