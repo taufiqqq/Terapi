@@ -4,7 +4,7 @@ import '../pages/user/chat_page.dart';
 import '../pages/user/home_page.dart';
 import '../pages/user/post_page.dart';
 import '../pages/user/profile_page.dart';
-import '../pages/therapist/therapist_page.dart';
+import '../pages/user/therapist_page.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
