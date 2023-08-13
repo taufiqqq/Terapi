@@ -19,7 +19,8 @@ class LogoutPage extends StatelessWidget {
         (route) => false, // Remove all previous routes from the stack
       );
     } catch (e) {
-      print("Error occurred during logout: $e");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 

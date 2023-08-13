@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print, duplicate_ignore
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:terapi/pages/user/signup_page.dart';
+import 'package:terapi/pages/user/register_page.dart';
 
 import '../widgets/widget_tree.dart';
 import 'user/home_page.dart';
@@ -32,17 +33,24 @@ class _LoginPageState extends State<LoginPage> {
       required String password,
       required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseFirestore _fireStore = FirebaseFirestore.instance;
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       user = userCredential.user;
       // Navigate to the next screen or perform any action after successful login
+      _fireStore.collection('users').doc(userCredential.user!.uid).set({
+        'uid': userCredential.user!.uid,
+        'email': email,
+      }, SetOptions(merge: true));
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
-        print("No user found");
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('User Not Found')));
       } else {
-        print("Login failed: ${e.message}");
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
       }
     }
     return user;
@@ -94,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
       if (user != null) {
         // Successful login, you can navigate to the next screen or perform any action
         // ignore: avoid_print
+
         print("Login successful!");
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
@@ -252,7 +261,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, SignUp.id);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterPage(),
+                        ),
+                      );
                     },
                     child: const Text(
                       ' Sign Up',
