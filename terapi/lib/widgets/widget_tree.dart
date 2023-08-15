@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../pages/user/appointment_page.dart';
+import '../pages/user/booking_page.dart';
 import '../pages/user/chat_page.dart';
 import '../pages/user/home_page.dart';
 import '../pages/user/post_page.dart';
@@ -20,8 +21,8 @@ class _WidgetTreeState extends State<WidgetTree> {
   List<Widget> pages = const [
     HomePage(),
     ChatPage(),
-    AppointmentPage(),
-    TherapistPage(),
+    BookingPage(),
+    AppointmentPage(), //sessions
     ProfilePage(),
   ];
   @override
@@ -55,8 +56,8 @@ class _WidgetTreeState extends State<WidgetTree> {
                 label: 'Book',
               ),
               NavigationDestination(
-                icon: Icon(Icons.medical_services_outlined),
-                label: 'Therapist',
+                icon: Icon(Icons.video_call_outlined),
+                label: 'Sessions',
               ),
               NavigationDestination(
                 icon: Icon(Icons.person_outlined),
