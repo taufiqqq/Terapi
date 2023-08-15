@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/chat_page.dart';
 
 import '../../models/home_class.dart';
 import '../../widgets/circle_icon.dart';
+import '../../widgets/drawer_widget.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
 import '../user/logout_page.dart';
@@ -18,6 +20,7 @@ class HomePage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        drawer: DrawerWidget(),
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -66,10 +69,19 @@ class HomePage extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  CircleIcon(
-                    box: ItemClass(
-                        title: "Appointment",
-                        imagePath: "lib/assets/img/calendar.png"),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AppointmentPage()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Appointment",
+                          imagePath: "lib/assets/img/calendar.png"),
+                    ),
                   ),
                   CircleIcon(
                     box: ItemClass(
