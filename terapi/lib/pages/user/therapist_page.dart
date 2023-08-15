@@ -16,26 +16,9 @@ class _TherapistPageState extends State<TherapistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text('Appointment'))),
+      appBar: AppBar(title: Center(child: Text('Therapist'))),
       body: Column(
-        children: [
-          Center(
-            child: CupertinoSlidingSegmentedControl(
-              children: const {
-                0: Text('Past'),
-                1: Text('Future'),
-              },
-              groupValue: sliding,
-              onValueChanged: (int? newValue) {
-                setState(
-                  () {
-                    sliding = newValue;
-                  },
-                );
-              },
-            ),
-          ),
-        ],
+      
       ),
     );
   }

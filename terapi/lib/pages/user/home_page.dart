@@ -68,10 +68,6 @@ class HomePage extends StatelessWidget {
                 children: [
                   CircleIcon(
                     box: ItemClass(
-                        title: "E-Book", imagePath: "lib/assets/img/book.png"),
-                  ),
-                  CircleIcon(
-                    box: ItemClass(
                         title: "Appointment",
                         imagePath: "lib/assets/img/calendar.png"),
                   ),
@@ -88,6 +84,10 @@ class HomePage extends StatelessWidget {
                     box: ItemClass(
                         title: "Progress",
                         imagePath: "lib/assets/img/progress.png"),
+                  ),
+                  CircleIcon(
+                    box: ItemClass(
+                        title: "E-Book", imagePath: "lib/assets/img/book.png"),
                   ),
                 ],
               ),

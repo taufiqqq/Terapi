@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../pages/user/appointment_page.dart';
 import '../pages/user/chat_page.dart';
 import '../pages/user/home_page.dart';
 import '../pages/user/post_page.dart';
@@ -18,8 +19,8 @@ class _WidgetTreeState extends State<WidgetTree> {
 
   List<Widget> pages = const [
     HomePage(),
-    PostPage(),
     ChatPage(),
+    AppointmentPage(),
     TherapistPage(),
     ProfilePage(),
   ];
@@ -38,24 +39,24 @@ class _WidgetTreeState extends State<WidgetTree> {
         child: NavigationBarTheme(
           data: const NavigationBarThemeData(indicatorColor: Colors.white),
           child: NavigationBar(
-            backgroundColor:
-                Color.fromARGB(0, 27, 152, 255), // Set the background color to transparent
+            backgroundColor: Color.fromARGB(
+                0, 27, 152, 255), // Set the background color to transparent
             destinations: [
               const NavigationDestination(
                 icon: Icon(Icons.home_outlined),
                 label: 'Home',
               ),
               NavigationDestination(
-                icon: Icon(Icons.add_box_outlined),
-                label: 'Post',
-              ),
-              NavigationDestination(
                 icon: Icon(Icons.chat_outlined),
                 label: 'Chat',
               ),
               NavigationDestination(
-                icon: Icon(Icons.video_call_outlined),
-                label: 'Appointment',
+                icon: Icon(Icons.add),
+                label: 'Book',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.medical_services_outlined),
+                label: 'Therapist',
               ),
               NavigationDestination(
                 icon: Icon(Icons.person_outlined),
