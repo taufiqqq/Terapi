@@ -11,6 +11,63 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   int? sliding = 0;
+
+  Widget buildSegmentedControlContent() {
+    if (sliding == 0) {
+      return Column(
+        children: [
+          // Content for Chat
+          // Replace with the widgets you want to show for Header 1
+          Text("Content for Header 1"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const GPTScreen();
+                  },
+                ),
+              );
+            },
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                radius: 30,
+              ),
+              title: Text(
+                "Therapist ChatBot",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Icon(
+                    Icons.done_all,
+                  ),
+                  Text(
+                    "Chat With Me",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+              trailing: Icon(Icons.push_pin),
+            ),
+          )
+        ],
+      );
+    } else if (sliding == 1) {
+      return Column(
+        children: [
+          // Content for Notify
+          // Show a text widget for Header 2
+          Text("Content for Header 2"),
+        ],
+      );
+    } else {
+      return Container(); // Return an empty container by default or handle other cases
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -35,8 +92,8 @@ class _ChatPageState extends State<ChatPage> {
             Center(
               child: CupertinoSlidingSegmentedControl(
                 children: const {
-                  0: Text('Header 1'),
-                  1: Text('Header 2'),
+                  0: Text('Chat'),
+                  1: Text('Notify'),
                 },
                 groupValue: sliding,
                 onValueChanged: (int? newValue) {
@@ -52,42 +109,9 @@ class _ChatPageState extends State<ChatPage> {
               height: 20,
             ),
 
-            GestureDetector(
-              onTap: () {
-                // Add the action you want to perform when the ListTile is tapped
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const GPTScreen();
-                    }, // Replace with your destination screen
-                  ),
-                );
-              },
-              child: const ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
-                  radius: 30,
-                ),
-                title: Text(
-                  "Therapist ChatBot",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                subtitle: Row(
-                  children: [
-                    Icon(
-                      Icons.done_all,
-                    ),
-                    Text(
-                      "Chat With Me",
-                      style: TextStyle(fontSize: 13),
-                    )
-                  ],
-                ),
-                trailing: Icon(Icons.push_pin),
-              ),
-            )
-            // Other widgets you want to include in the ListView
+            // Display content based on the selected value of the segmented control
+            buildSegmentedControlContent(),
+
           ],
         ),
       );
