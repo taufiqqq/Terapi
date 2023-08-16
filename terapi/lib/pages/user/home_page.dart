@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/chat_page.dart';
+import 'package:terapi/pages/user/test_page.dart';
 
 import '../../models/home_class.dart';
 import '../../widgets/circle_icon.dart';
@@ -83,9 +84,18 @@ class HomePage extends StatelessWidget {
                           imagePath: "lib/assets/img/calendar.png"),
                     ),
                   ),
-                  CircleIcon(
-                    box: ItemClass(
-                        title: "Test", imagePath: "lib/assets/img/exam.png"),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TestPage()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Test", imagePath: "lib/assets/img/exam.png"),
+                    ),
                   ),
                   CircleIcon(
                     box: ItemClass(
