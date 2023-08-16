@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/register_page.dart';
+
 import '../widgets/widget_tree.dart';
 
 class LoginPage extends StatefulWidget {
