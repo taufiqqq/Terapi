@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/register_page.dart';
 
 import '../widgets/widget_tree.dart';
-import 'user/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'login';

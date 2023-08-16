@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:terapi/pages/login_page.dart';
-import 'package:terapi/pages/user/home_page.dart';
 import 'package:terapi/providers/chat_providers.dart';
 import 'package:terapi/providers/models_provider.dart';
 import 'package:terapi/widgets/widget_tree.dart';
