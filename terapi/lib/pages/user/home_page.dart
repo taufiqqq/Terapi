@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
-import 'package:terapi/pages/user/chat_page.dart';
 import 'package:terapi/pages/user/test_page.dart';
 
 import '../../models/home_class.dart';
@@ -8,7 +7,6 @@ import '../../widgets/circle_icon.dart';
 import '../../widgets/drawer_widget.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
-import '../user/logout_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
