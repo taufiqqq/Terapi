@@ -60,7 +60,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           break;
         case 'past':
           schedule['status'] = FilterStatus.past.toString();
-          break;
+          break;  
         case 'cancelled':
           schedule['status'] = FilterStatus.cancelled.toString();
           break;
