@@ -60,7 +60,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           break;
         case 'past':
           schedule['status'] = FilterStatus.past.toString();
-          break;  
+          break;
         case 'cancelled':
           schedule['status'] = FilterStatus.cancelled.toString();
           break;
@@ -73,8 +73,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Appointment'),
         centerTitle: true,
+        title: SafeArea(
+          child: Image.asset(
+                  'lib/assets/img/TERAPI.png',
+                  height: 150,
+                  width: 150,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -82,6 +88,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Text(
+                'Appointment',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
               Gap(10),
               CupertinoSlidingSegmentedControl(
                 children: const {

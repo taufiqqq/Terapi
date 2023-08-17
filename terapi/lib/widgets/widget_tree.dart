@@ -38,8 +38,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         child: NavigationBarTheme(
           data: const NavigationBarThemeData(indicatorColor: Colors.white),
           child: NavigationBar(
-            backgroundColor: Color.fromARGB(
-                0, 27, 152, 255), // Set the background color to transparent
+            backgroundColor: Color.fromARGB(0, 116, 138, 156), // Set the background color to transparent
             destinations: [
               const NavigationDestination(
                 icon: Icon(Icons.home_outlined),
@@ -51,7 +50,7 @@ class _WidgetTreeState extends State<WidgetTree> {
               ),
               NavigationDestination(
                 icon: Icon(Icons.add),
-                label: 'Book',
+                label: 'Booking',
               ),
               NavigationDestination(
                 icon: Icon(Icons.video_call_outlined),
