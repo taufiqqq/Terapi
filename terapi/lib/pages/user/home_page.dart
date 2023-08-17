@@ -4,7 +4,6 @@ import 'package:terapi/pages/user/test_page.dart';
 
 import '../../models/home_class.dart';
 import '../../widgets/circle_icon.dart';
-import '../../widgets/drawer_widget.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
 
@@ -19,22 +18,56 @@ class HomePage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        drawer: DrawerWidget(),
         appBar: AppBar(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SafeArea(
                 child: Column(
                   children: [
-                    Image.asset(
-                      'lib/assets/img/TERAPI.png',
-                      height: 150,
-                      width: 150,
+                    FractionalTranslation(
+                      translation: Offset(0.33,
+                          0.0), // Adjust these values for custom positioning
+                      child: Image.asset(
+                        'lib/assets/img/TERAPI.png',
+                        height: 150,
+                        width: 150,
+                      ),
                     ),
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              const DrawerHeader(
+                child: Center(
+                  child: Text(
+                    'Logo',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text(
+                  'Logo',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  MaterialPageRoute(builder: (context) => HomePage());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text(
+                  'Logo',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {},
+              )
             ],
           ),
         ),
@@ -86,8 +119,7 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => TestPage()),
+                        MaterialPageRoute(builder: (context) => TestPage()),
                       );
                     },
                     child: CircleIcon(
