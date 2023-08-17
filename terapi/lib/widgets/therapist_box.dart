@@ -37,7 +37,7 @@ class TherapistList extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Container(
@@ -49,13 +49,10 @@ class TherapistList extends StatelessWidget {
                       ),
                       Text(
                         box.title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      SizedBox(
-                        height: 4,
                       ),
                       Text(
                         box.title,
@@ -63,9 +60,16 @@ class TherapistList extends StatelessWidget {
                           fontSize: 15,
                         ),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 5),
                       Row(
-                        children: [Text("Rating")],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.yellow[600],
+                          ),
+                          const Text("4.9")
+                        ],
                       )
                     ],
                   ),
