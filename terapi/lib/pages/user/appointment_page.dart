@@ -89,7 +89,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                'Appointment',
+                'My Appointment',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
