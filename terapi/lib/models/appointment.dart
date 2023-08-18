@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class Appointment {
@@ -6,6 +6,7 @@ class Appointment {
   final String therapistId;
   final DateTime date;
   final TimeOfDay time;
+  final String status;
   // You can add more appointment properties as needed
 
   Appointment({
@@ -13,6 +14,7 @@ class Appointment {
     required this.therapistId,
     required this.date,
     required this.time,
+    required this.status, //whether completed, canceled or not yet
   }) : uid = uid ?? Uuid().v4(); // Generate a UUID if uid is not provided
 }
 

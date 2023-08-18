@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:terapi/models/home_class.dart';
 
-import '../models/home_class.dart';
+class UpcomingBox extends StatelessWidget {
+  const UpcomingBox({super.key, required this.box});
 
-class SuggestArticle extends StatelessWidget {
-  const SuggestArticle({super.key, required this.box});
-  final ItemClass box;
+  final UpcomingClass box;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -38,14 +38,14 @@ class SuggestArticle extends StatelessWidget {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Expanded(
                         child: Text(
-                          box.title,
+                          box.date,
                           style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white, // Change to the desired color
                           ),
@@ -55,13 +55,21 @@ class SuggestArticle extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        "By Dr Azhar",
+                        box.session,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        box.doctor,
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 12),
                     ],
                   ),
                 ),

@@ -2,18 +2,26 @@ import 'appointment.dart';
 
 class Therapist {
   final String uid;
+  final String name;
+  final String gender;
   final String email;
-  final List<Appointment> appointments;
-  final List<String> reviews;
+  final List<Appointment>? appointments;
+  final List<String>? comments;
   final String specialization;
-  final String description;
+  final String? description;
+  final double review;
+  final String location;
 
   Therapist({
     required this.uid,
+    required this.name,
+    required this.gender,
     required this.email,
     this.appointments = const [],
-    this.reviews = const [],
+    this.comments = const [],
     required this.specialization,
-    required this.description,
+    this.description,
+    required this.review,
+    required this.location,
   });
 }

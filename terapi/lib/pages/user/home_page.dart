@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/test_page.dart';
+import 'package:terapi/widgets/upcoming_box.dart';
 
 import '../../models/home_class.dart';
 import '../../widgets/circle_icon.dart';
-import '../../widgets/drawer_widget.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
 
@@ -19,22 +19,56 @@ class HomePage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        drawer: DrawerWidget(),
         appBar: AppBar(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SafeArea(
                 child: Column(
                   children: [
-                    Image.asset(
-                      'lib/assets/img/TERAPI.png',
-                      height: 150,
-                      width: 150,
+                    FractionalTranslation(
+                      translation: Offset(0.33,
+                          0.0), // Adjust these values for custom positioning
+                      child: Image.asset(
+                        'lib/assets/img/TERAPI.png',
+                        height: 150,
+                        width: 150,
+                      ),
                     ),
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              const DrawerHeader(
+                child: Center(
+                  child: Text(
+                    'Logo',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text(
+                  'Logo',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  MaterialPageRoute(builder: (context) => HomePage());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text(
+                  'Logo',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {},
+              )
             ],
           ),
         ),
@@ -86,8 +120,7 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => TestPage()),
+                        MaterialPageRoute(builder: (context) => TestPage()),
                       );
                     },
                     child: CircleIcon(
@@ -159,10 +192,19 @@ class HomePage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SuggestArticle(),
-                  SuggestArticle(),
-                  SuggestArticle(),
-                  SizedBox(
+                  SuggestArticle(
+                      box: ItemClass(
+                          title: "Best Breathing Exercise",
+                          imagePath: "lib/assets/img/background-1.png")),
+                  SuggestArticle(
+                      box: ItemClass(
+                          title: "Practicing Mindfulness",
+                          imagePath: "lib/assets/img/background-2.png")),
+                  SuggestArticle(
+                      box: ItemClass(
+                          title: "Positive Psychology",
+                          imagePath: "lib/assets/img/background-3.png")),
+                  const SizedBox(
                     height: 50,
                   ),
                 ],
@@ -183,10 +225,25 @@ class HomePage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SuggestArticle(),
-                  SuggestArticle(),
-                  SuggestArticle(),
-                  SizedBox(
+                  UpcomingBox(
+                      box: UpcomingClass(
+                          doctor: "Dr Azhar",
+                          session: "Therapy Session",
+                          date: "28 May,2023",
+                          imagePath: "lib/assets/img/background-6.png")),
+                  UpcomingBox(
+                      box: UpcomingClass(
+                          doctor: "Webinar",
+                          session: "LUMS:Health",
+                          date: "28 June,2023",
+                          imagePath: "lib/assets/img/background-5.png")),
+                  UpcomingBox(
+                      box: UpcomingClass(
+                          doctor: "Dr Azhar",
+                          session: "Therapy Session",
+                          date: "28 July,2023",
+                          imagePath: "lib/assets/img/background-4.png")),
+                  const SizedBox(
                     height: 50,
                   ),
                 ],
