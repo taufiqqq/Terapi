@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/login_page.dart';
-
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
 
@@ -15,7 +14,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  Future<void> register(String email, String password) async {
+  final TextEditingController _nameController = TextEditingController(); // New controller for name
+  Future<void> register(String name, String email, String password) async {
     if (_passwordController.text == _confirmPasswordController.text) {
       try {
         FirebaseAuth auth = FirebaseAuth.instance;
@@ -28,12 +28,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
         _fireStore.collection('users').doc(userCredential.user!.uid).set({
           'uid': userCredential.user!.uid,
+          'name': name, // Save the name to Firestore
           'email': email,
         });
         // Registration successful, you can navigate to the next screen or perform any action
         // ignore: avoid_print
         print("Registration successful!");
-
+        
         Navigator.pop(
           context,
           MaterialPageRoute(
@@ -100,6 +101,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  hintText: "Name", // Update the hintText
+                  prefixIcon: Icon(Icons.person), // Change icon to person
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
                   hintText: "Email",
@@ -126,9 +135,10 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
+                  final String name = _nameController.text.trim();
                   final String email = _emailController.text.trim();
                   final String password = _passwordController.text.trim();
-                  register(email, password);
+                  register(name, email, password);
                 },
                 child: Text('Register'),
               )
