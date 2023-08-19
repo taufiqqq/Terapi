@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:group_button/group_button.dart';
 
 import '../../models/therapist.dart';
 
@@ -150,56 +151,115 @@ class _BookingPageState extends State<BookingPage> {
                     showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ListTile(
-                              title: Text("Sort by Name"),
-                              onTap: () {
-                                setState(() {
-                                  sortOption = SortOption.Name;
-                                  sortTherapists();
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            ListTile(
-                              title: Text("Sort by Review"),
-                              onTap: () {
-                                setState(() {
-                                  sortOption = SortOption.Review;
-                                  sortTherapists();
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            Divider(),
-                            ListTile(
-                              title: Row(
-                                children: [
-                                  Text("Toggle Gender"),
-                                  Spacer(),
-                                  Material(
-                                    color: Colors.transparent,
-                                    child:
-                                        CupertinoSlidingSegmentedControl<int>(
-                                      groupValue: selectedGenderSegment,
-                                      children: {
-                                        0: Text("All"),
-                                        1: Text("Male"),
-                                        2: Text("Female"),
-                                      },
-                                      onValueChanged: (newValue) {
-                                        setState(() {
-                                          selectedGenderSegment = newValue!;
-                                          updateSelectedGenders(newValue);
-                                        });
-                                      },
-                                    ),
+                        return StatefulBuilder(
+                          builder:
+                              (BuildContext context, StateSetter setState) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  title: Text("Sort by Name"),
+                                  onTap: () {
+                                    setState(() {
+                                      sortOption = SortOption.Name;
+                                      sortTherapists();
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text("Sort by Review"),
+                                  onTap: () {
+                                    setState(() {
+                                      sortOption = SortOption.Review;
+                                      sortTherapists();
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                Divider(),
+                                ListTile(
+                                  title: Row(
+                                    children: [
+                                      Text("Toggle Gender"),
+                                      Spacer(),
+                                      CupertinoSlidingSegmentedControl<int>(
+                                        groupValue: selectedGenderSegment,
+                                        children: {
+                                          0: Text("All"),
+                                          1: Text("Male"),
+                                          2: Text("Female"),
+                                        },
+                                        onValueChanged: (value) {
+                                          setState(() {
+                                            selectedGenderSegment = value!;
+                                            updateSelectedGenders(value);
+                                            print('dapat');
+                                          });
+                                          filterTherapists("");
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.filter_list),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredTherapists.length,
+              itemBuilder: (context, index) {
+                final therapist = filteredTherapists[index];
+                if ((selectedGenders.isNotEmpty &&
+                        !selectedGenders.contains(therapist.gender)) ||
+                    (selectedSpecializations.isNotEmpty &&
+                        !selectedSpecializations
+                            .contains(therapist.specialization))) {
+                  return SizedBox
+                      .shrink(); // Hide the therapist entry if not matching filters
+                }
+                return ListTile(
+                  leading: Icon(Icons.person),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(therapist.name),
+                      Text("Specialization: ${therapist.specialization}"),
+                      Text("Location: ${therapist.location}"),
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.yellow),
+                          Text("${therapist.review.toStringAsFixed(1)}"),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: BookingPage(),
+  ));
+}
+
+
 
                             /* ListTile(
                               title: Row(
@@ -262,57 +322,3 @@ class _BookingPageState extends State<BookingPage> {
                                 ],
                               ),
                             ), */
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: Icon(Icons.filter_list),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredTherapists.length,
-              itemBuilder: (context, index) {
-                final therapist = filteredTherapists[index];
-                if ((selectedGenders.isNotEmpty &&
-                        !selectedGenders.contains(therapist.gender)) ||
-                    (selectedSpecializations.isNotEmpty &&
-                        !selectedSpecializations
-                            .contains(therapist.specialization))) {
-                  return SizedBox
-                      .shrink(); // Hide the therapist entry if not matching filters
-                }
-                return ListTile(
-                  leading: Icon(Icons.person),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(therapist.name),
-                      Text("Specialization: ${therapist.specialization}"),
-                      Text("Location: ${therapist.location}"),
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.yellow),
-                          Text("${therapist.review.toStringAsFixed(1)}"),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: BookingPage(),
-  ));
-}

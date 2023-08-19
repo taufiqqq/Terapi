@@ -48,6 +48,7 @@ dependencies:
   cloud_firestore: ^4.8.4
   uuid: ^3.0.7
   gap: ^3.0.1
+  group_button: ^5.3.2
 
 dev_dependencies:
   flutter_test:
