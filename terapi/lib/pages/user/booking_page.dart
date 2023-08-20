@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:group_button/group_button.dart';
+import 'package:terapi/pages/user/therapist_page.dart';
 
 import '../../models/therapist.dart';
 
@@ -263,7 +264,13 @@ class _BookingPageState extends State<BookingPage> {
                     ),
                   ),
                   onTap: () {
-                   
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            (TherapistPage(therapist: therapist)),
+                      ),
+                    );
                   },
                 );
               },

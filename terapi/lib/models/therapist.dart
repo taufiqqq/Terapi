@@ -10,7 +10,7 @@ class Therapist {
   final String specialization;
   final String? description;
   final double review;
-  final double totalreview;
+  final int totalreview;
   final String location;
 
   Therapist({
