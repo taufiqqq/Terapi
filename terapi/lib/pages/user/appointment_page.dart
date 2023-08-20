@@ -76,9 +76,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
         centerTitle: true,
         title: SafeArea(
           child: Image.asset(
-                  'lib/assets/img/TERAPI.png',
-                  height: 150,
-                  width: 150,
+            'lib/assets/img/TERAPI.png',
+            height: 150,
+            width: 150,
           ),
         ),
       ),
@@ -181,34 +181,28 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
                             //condition please
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 if (status == FilterStatus.future) ...[
-                                  Expanded(
-                                    child: OutlinedButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        'Cancel',
-                                      ),
-                                    ),
+                                  OutlinedButton(
+                                    onPressed: () {},
+                                    child: const Text('Cancel',
+                                        style: TextStyle(color: Colors.red)),
                                   ),
-                                  const SizedBox(
-                                    width: 20,
+                                  OutlinedButton(
+                                    onPressed: () {},
+                                    child: const Text('Reschedule'),
                                   ),
-                                  Expanded(
-                                    child: OutlinedButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        'Reschedule',
-                                      ), //TODO if time is near, then it will says JOIN
-                                    ),
+                                  FilledButton(
+                                    onPressed: () {},
+                                    child: const Text('Join'),
                                   ),
                                 ] else if (status == FilterStatus.past) ...[
                                   Expanded(
-                                    child: TextButton(
+                                    child: OutlinedButton(
                                       onPressed: () {},
                                       child: const Text(
-                                        'Completed',
+                                        'Review',
                                       ),
                                     ),
                                   ),

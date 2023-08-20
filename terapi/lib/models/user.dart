@@ -1,16 +1,19 @@
 import 'appointment.dart';
 import 'test.dart';
 
-class User {
+class UserClient {
   final String uid;
   final String email;
-  final List<Appointment> appointments;
-  final List<Test> tests; // List to store test results
+  final String name;
+  final List<Appointment>? appointments;
+  final List<Test>? tests;
+  // List to store test results
   // You can add more user properties as needed
 
-  User({
+  UserClient({
     required this.uid,
     required this.email,
+    required this.name,
     this.appointments = const [],
     this.tests = const [],
   });

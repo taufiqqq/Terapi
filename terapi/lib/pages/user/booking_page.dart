@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:group_button/group_button.dart';
 
 import '../../models/therapist.dart';
 
@@ -19,45 +20,65 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   List<Therapist> therapists = [
     Therapist(
-        uid: "1",
-        name: "Dr. Smith",
-        email: "smith@gmail.com",
-        specialization: "Psychologist",
-        location: "New York",
-        review: 4.8,
-        gender: "Male"),
+      uid: "1",
+      name: "Dr. Haji Ahmad",
+      email: "ahmad@gmail.com",
+      specialization: "Psychologist",
+      location: "Putrajaya",
+      gender: "Male",
+      review: 4.8,
+      totalreview: 4,
+    ),
     Therapist(
-        uid: "2",
-        gender: "Male",
-        email: "johnson@gmail.com",
-        name: "Dr. Johnson",
-        specialization: "Counselor",
-        location: "Los Angeles",
-        review: 4.9),
+      uid: "2",
+      gender: "Male",
+      email: "karim@gmail.com",
+      name: "En Karim Anwar",
+      specialization: "Counselor",
+      location: "Cyberjaya",
+      review: 4.9,
+      totalreview: 21,
+    ),
     Therapist(
-        uid: "3",
-        gender: "Female",
-        email: "nur@gmail.com",
-        name: "Dr. Nur",
-        specialization: "Therapist",
-        location: "Chicago",
-        review: 4.5),
+      uid: "3",
+      gender: "Female",
+      email: "nur@gmail.com",
+      name: "Nur Syafiqah Ilaya",
+      specialization: "Therapist",
+      location: "Johor Bahru",
+      review: 4.0,
+      totalreview: 50,
+    ),
     Therapist(
-        uid: "4",
-        gender: "Male",
-        email: "brown@gmail.com",
-        name: "Dr. Brown",
-        specialization: "Psychiatrist",
-        location: "Houston",
-        review: 4.7),
+      uid: "4",
+      gender: "Male",
+      email: "brown@gmail.com",
+      name: "Brown Michael",
+      specialization: "Psychiatrist",
+      location: "Kuala Lumpur",
+      review: 4.3,
+      totalreview: 5,
+    ),
     Therapist(
-        uid: "5",
-        gender: "Female",
-        email: "ajijah@gmail.com",
-        name: "Dr. Ajijah",
-        specialization: "Life Coach",
-        location: "Miami",
-        review: 4.6),
+      uid: "5",
+      gender: "Female",
+      email: "ajijah@gmail.com",
+      name: "Dr. Ajijah",
+      specialization: "Islamic Counsellor",
+      location: "Kuala Lumpur",
+      review: 4.7,
+      totalreview: 15,
+    ),
+    Therapist(
+      uid: "5",
+      gender: "Female",
+      email: "ajijah@gmail.com",
+      name: "Dr. Nuraini",
+      specialization: "Counsellor",
+      location: "Kelantan",
+      review: 3.9,
+      totalreview: 88,
+    ),
   ];
   int selectedGenderSegment = 0; // Initialize the selected gender segment
 
@@ -140,56 +161,127 @@ class _BookingPageState extends State<BookingPage> {
                     showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ListTile(
-                              title: Text("Sort by Name"),
-                              onTap: () {
-                                setState(() {
-                                  sortOption = SortOption.Name;
-                                  sortTherapists();
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            ListTile(
-                              title: Text("Sort by Review"),
-                              onTap: () {
-                                setState(() {
-                                  sortOption = SortOption.Review;
-                                  sortTherapists();
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            Divider(),
-                            ListTile(
-                              title: Row(
-                                children: [
-                                  Text("Toggle Gender"),
-                                  Spacer(),
-                                  Material(
-                                    color: Colors.transparent,
-                                    child:
-                                        CupertinoSlidingSegmentedControl<int>(
-                                      groupValue: selectedGenderSegment,
-                                      children: {
-                                        0: Text("All"),
-                                        1: Text("Male"),
-                                        2: Text("Female"),
-                                      },
-                                      onValueChanged: (newValue) {
-                                        setState(() {
-                                          selectedGenderSegment = newValue!;
-                                          updateSelectedGenders(newValue);
-                                        });
-                                      },
-                                    ),
+                        return StatefulBuilder(
+                          builder:
+                              (BuildContext context, StateSetter setState) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  title: Text("Sort by Name"),
+                                  onTap: () {
+                                    setState(() {
+                                      sortOption = SortOption.Name;
+                                      sortTherapists();
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text("Sort by Review"),
+                                  onTap: () {
+                                    setState(() {
+                                      sortOption = SortOption.Review;
+                                      sortTherapists();
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                Divider(),
+                                ListTile(
+                                  title: Row(
+                                    children: [
+                                      Text("Toggle Gender"),
+                                      Spacer(),
+                                      CupertinoSlidingSegmentedControl<int>(
+                                        groupValue: selectedGenderSegment,
+                                        children: {
+                                          0: Text("All"),
+                                          1: Text("Male"),
+                                          2: Text("Female"),
+                                        },
+                                        onValueChanged: (value) {
+                                          setState(() {
+                                            selectedGenderSegment = value!;
+                                            updateSelectedGenders(value);
+                                            print('dapat');
+                                          });
+                                          filterTherapists("");
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.filter_list),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredTherapists.length,
+              itemBuilder: (context, index) {
+                final therapist = filteredTherapists[index];
+                if ((selectedGenders.isNotEmpty &&
+                        !selectedGenders.contains(therapist.gender)) ||
+                    (selectedSpecializations.isNotEmpty &&
+                        !selectedSpecializations
+                            .contains(therapist.specialization))) {
+                  return SizedBox
+                      .shrink(); // Hide the therapist entry if not matching filters
+                }
+                return GestureDetector(
+                  child: ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image(
+                        image: AssetImage(therapist.gender == 'Male'
+                            ? 'lib/assets/img/therapist-2.jpg'
+                            : 'lib/assets/img/therapist-1.png'),
+                      ),
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(therapist.name),
+                        Text(therapist.specialization),
+                        Text(therapist.location),
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.yellow),
+                            Text("${therapist.review.toStringAsFixed(1)}"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                   
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: BookingPage(),
+  ));
+}
+
+
 
                             /* ListTile(
                               title: Row(
@@ -252,57 +344,3 @@ class _BookingPageState extends State<BookingPage> {
                                 ],
                               ),
                             ), */
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: Icon(Icons.filter_list),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredTherapists.length,
-              itemBuilder: (context, index) {
-                final therapist = filteredTherapists[index];
-                if ((selectedGenders.isNotEmpty &&
-                        !selectedGenders.contains(therapist.gender)) ||
-                    (selectedSpecializations.isNotEmpty &&
-                        !selectedSpecializations
-                            .contains(therapist.specialization))) {
-                  return SizedBox
-                      .shrink(); // Hide the therapist entry if not matching filters
-                }
-                return ListTile(
-                  leading: Icon(Icons.person),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(therapist.name),
-                      Text("Specialization: ${therapist.specialization}"),
-                      Text("Location: ${therapist.location}"),
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.yellow),
-                          Text("${therapist.review.toStringAsFixed(1)}"),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: BookingPage(),
-  ));
-}

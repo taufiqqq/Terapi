@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/gpt_screen.dart';
 
+import 'manual_chat_screen.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
@@ -51,6 +53,39 @@ class _ChatPageState extends State<ChatPage> {
                 ],
               ),
               trailing: Icon(Icons.push_pin),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ManualScreen();
+                  },
+                ),
+              );
+            },
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                radius: 30,
+              ),
+              title: Text(
+                "Dr Dom",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Icon(
+                    Icons.done_all,
+                  ),
+                  Text(
+                    "Chat With Me",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
             ),
           )
         ],
@@ -111,7 +146,6 @@ class _ChatPageState extends State<ChatPage> {
 
             // Display content based on the selected value of the segmented control
             buildSegmentedControlContent(),
-
           ],
         ),
       );

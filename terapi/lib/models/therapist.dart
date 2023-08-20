@@ -10,6 +10,7 @@ class Therapist {
   final String specialization;
   final String? description;
   final double review;
+  final double totalreview;
   final String location;
 
   Therapist({
@@ -22,6 +23,7 @@ class Therapist {
     required this.specialization,
     this.description,
     required this.review,
+    required this.totalreview,
     required this.location,
   });
 }
