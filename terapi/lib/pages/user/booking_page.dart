@@ -21,10 +21,10 @@ class _BookingPageState extends State<BookingPage> {
   List<Therapist> therapists = [
     Therapist(
       uid: "1",
-      name: "Dr. Smith",
-      email: "smith@gmail.com",
+      name: "Dr. Haji Ahmad",
+      email: "ahmad@gmail.com",
       specialization: "Psychologist",
-      location: "New York",
+      location: "Putrajaya",
       gender: "Male",
       review: 4.8,
       totalreview: 4,
@@ -32,10 +32,10 @@ class _BookingPageState extends State<BookingPage> {
     Therapist(
       uid: "2",
       gender: "Male",
-      email: "johnson@gmail.com",
-      name: "Dr. Johnson",
+      email: "karim@gmail.com",
+      name: "En Karim Anwar",
       specialization: "Counselor",
-      location: "Los Angeles",
+      location: "Cyberjaya",
       review: 4.9,
       totalreview: 21,
     ),
@@ -43,20 +43,20 @@ class _BookingPageState extends State<BookingPage> {
       uid: "3",
       gender: "Female",
       email: "nur@gmail.com",
-      name: "Dr. Nur",
+      name: "Nur Syafiqah Ilaya",
       specialization: "Therapist",
-      location: "Chicago",
-      review: 4.5,
+      location: "Johor Bahru",
+      review: 4.0,
       totalreview: 50,
     ),
     Therapist(
       uid: "4",
       gender: "Male",
       email: "brown@gmail.com",
-      name: "Dr. Brown",
+      name: "Brown Michael",
       specialization: "Psychiatrist",
-      location: "Houston",
-      review: 4.7,
+      location: "Kuala Lumpur",
+      review: 4.3,
       totalreview: 5,
     ),
     Therapist(
@@ -64,10 +64,20 @@ class _BookingPageState extends State<BookingPage> {
       gender: "Female",
       email: "ajijah@gmail.com",
       name: "Dr. Ajijah",
-      specialization: "Life Coach",
-      location: "Miami",
-      review: 4.6,
+      specialization: "Islamic Counsellor",
+      location: "Kuala Lumpur",
+      review: 4.7,
       totalreview: 15,
+    ),
+    Therapist(
+      uid: "5",
+      gender: "Female",
+      email: "ajijah@gmail.com",
+      name: "Dr. Nuraini",
+      specialization: "Counsellor",
+      location: "Kelantan",
+      review: 3.9,
+      totalreview: 88,
     ),
   ];
   int selectedGenderSegment = 0; // Initialize the selected gender segment
@@ -227,22 +237,34 @@ class _BookingPageState extends State<BookingPage> {
                   return SizedBox
                       .shrink(); // Hide the therapist entry if not matching filters
                 }
-                return ListTile(
-                  leading: Icon(Icons.person),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(therapist.name),
-                      Text("Specialization: ${therapist.specialization}"),
-                      Text("Location: ${therapist.location}"),
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.yellow),
-                          Text("${therapist.review.toStringAsFixed(1)}"),
-                        ],
+                return GestureDetector(
+                  child: ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image(
+                        image: AssetImage(therapist.gender == 'Male'
+                            ? 'lib/assets/img/therapist-2.jpg'
+                            : 'lib/assets/img/therapist-1.png'),
                       ),
-                    ],
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(therapist.name),
+                        Text(therapist.specialization),
+                        Text(therapist.location),
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.yellow),
+                            Text("${therapist.review.toStringAsFixed(1)}"),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                  onTap: () {
+                   
+                  },
                 );
               },
             ),
