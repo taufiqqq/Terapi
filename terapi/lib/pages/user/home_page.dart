@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
+import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/widgets/upcoming_box.dart';
 
@@ -138,9 +139,18 @@ class HomePage extends StatelessWidget {
                         title: "Progress",
                         imagePath: "lib/assets/img/progress.png"),
                   ),
-                  CircleIcon(
-                    box: ItemClass(
-                        title: "E-Book", imagePath: "lib/assets/img/book.png"),
+                  GestureDetector(
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "E-Book",
+                          imagePath: "lib/assets/img/book.png"),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => (EbookPage())));
+                    },
                   ),
                 ],
               ),
