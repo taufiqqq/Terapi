@@ -27,38 +27,67 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildDateTimePicker(
-              labelText: 'Date',
-              value: _date,
-              selectDate: _selectDate,
+            Text(widget.therapist.name,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
+            _buildContainer(
+              child: _buildDateTimePicker(
+                labelText: 'Date',
+                value: _date,
+                selectDate: _selectDate,
+              ),
             ),
             SizedBox(height: 16.0),
-            _buildDateTimePicker(
-              labelText: 'Time',
-              value: _time,
-              selectDate: _selectTime,
+            _buildContainer(
+              child: _buildDateTimePicker(
+                labelText: 'Time',
+                value: _time,
+                selectDate: _selectTime,
+              ),
             ),
             SizedBox(height: 16.0),
-            DropdownButtonFormField(
-              value: _method,
-              items: [
-                DropdownMenuItem(child: Text('Online'), value: 'Online'),
-                DropdownMenuItem(child: Text('Physical'), value: 'Physical'),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  _method = value!;
-                });
-              },
+            _buildContainer(
+              child: DropdownButtonFormField(
+                value: _method,
+                items: [
+                  DropdownMenuItem(child: Text('Online'), value: 'Online'),
+                  DropdownMenuItem(child: Text('Physical'), value: 'Physical'),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _method = value!;
+                  });
+                },
+              ),
             ),
             SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(labelText: 'Description'),
-              maxLines: 3,
+            _buildContainer(
+              child: TextField(
+                decoration: InputDecoration(labelText: 'Description'),
+                maxLines: 3,
+              ),
             ),
+            SizedBox(height: 10),
+            FilledButton(
+                onPressed: () {
+                  _saveAppointment;
+                },
+                child: Text('Confirm'))
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildContainer({required Widget child}) {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: Colors.grey),
+      ),
+      child: child,
     );
   }
 
@@ -148,4 +177,6 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
       }
     });
   }
+
+  void _saveAppointment() {}
 }
