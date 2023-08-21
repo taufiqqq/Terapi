@@ -1,0 +1,151 @@
+import 'package:flutter/material.dart';
+import '../../models/therapist.dart';
+
+class AppointmentDetail extends StatefulWidget {
+  final Therapist therapist;
+
+  const AppointmentDetail({Key? key, required this.therapist})
+      : super(key: key);
+
+  @override
+  State<AppointmentDetail> createState() => _AppointmentDetailState();
+}
+
+class _AppointmentDetailState extends State<AppointmentDetail> {
+  DateTime _date = DateTime.now();
+  TimeOfDay _time = TimeOfDay.now();
+  String _method = 'Online';
+  String _reasons = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Appointment Detail'),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            _buildDateTimePicker(
+              labelText: 'Date',
+              value: _date,
+              selectDate: _selectDate,
+            ),
+            SizedBox(height: 16.0),
+            _buildDateTimePicker(
+              labelText: 'Time',
+              value: _time,
+              selectDate: _selectTime,
+            ),
+            SizedBox(height: 16.0),
+            DropdownButtonFormField(
+              value: _method,
+              items: [
+                DropdownMenuItem(child: Text('Online'), value: 'Online'),
+                DropdownMenuItem(child: Text('Physical'), value: 'Physical'),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  _method = value!;
+                });
+              },
+            ),
+            SizedBox(height: 16.0),
+            TextField(
+              decoration: InputDecoration(labelText: 'Description'),
+              maxLines: 3,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDateTimePicker({
+    required String labelText,
+    required dynamic value,
+    required Function(BuildContext) selectDate,
+  }) {
+    return InkWell(
+      onTap: () => selectDate(context),
+      child: InputDecorator(
+        decoration: InputDecoration(
+          labelText: labelText,
+          contentPadding: EdgeInsets.zero,
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.calendar_today),
+            SizedBox(width: 8.0),
+            Text(value is DateTime
+                ? _formattedDate(value)
+                : _formattedTime(value)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _formattedDate(DateTime dateTime) {
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+  }
+
+  String _formattedTime(TimeOfDay time) {
+    return '${time.hour}:${time.minute.toString().padLeft(2, '0')}';
+  }
+
+  void _selectDate(BuildContext context) {
+    showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    ).then((date) {
+      if (date != null) {
+        setState(() {
+          _date = date;
+        });
+      }
+    });
+  }
+
+  void _selectTime(BuildContext context) {
+    final now = TimeOfDay.now();
+    final earliestTime = TimeOfDay(hour: 9, minute: 0);
+    final latestTime = TimeOfDay(hour: 21, minute: 0); // 9 PM
+
+    showTimePicker(
+      context: context,
+      initialTime: _time,
+      initialEntryMode: TimePickerEntryMode.dial,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
+    ).then((time) {
+      if (time != null) {
+        final selectedTimeInMinutes = time.hour * 60 + time.minute;
+        final earliestTimeInMinutes =
+            earliestTime.hour * 60 + earliestTime.minute;
+        final latestTimeInMinutes = latestTime.hour * 60 + latestTime.minute;
+
+        if (selectedTimeInMinutes >= earliestTimeInMinutes &&
+            selectedTimeInMinutes <= latestTimeInMinutes) {
+          setState(() {
+            _time = time;
+          });
+        } else {
+          // Display an error message using a Snackbar
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Please select a time between 9 AM and 9 PM.'),
+            ),
+          );
+        }
+      }
+    });
+  }
+}
