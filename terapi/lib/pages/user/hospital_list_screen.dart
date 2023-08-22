@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/hospital_dataset.dart';
+import 'hospital_service_detail.dart';
 
 class HospitalListScreen extends StatefulWidget {
   @override
@@ -213,58 +214,43 @@ class _HospitalListScreenState extends State<HospitalListScreen> {
               itemCount: filteredHospitals.length,
               itemBuilder: (context, index) {
                 final hospital = filteredHospitals[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            HospitalServiceDetail(hospital: hospital),
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                HospitalServiceDetail(hospital: hospital),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Text(
+                            hospital.hospital.substring(0, 1),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.blue,
+                        ),
+                        title: Text(hospital.hospital),
+                        subtitle:
+                            Text('${hospital.state}, Phone: ${hospital.phone}'),
                       ),
-                    );
-                  },
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      child: Text(
-                        hospital.hospital.substring(0, 1),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.blue,
                     ),
-                    title: Text(hospital.hospital),
-                    subtitle:
-                        Text('${hospital.state}, Phone: ${hospital.phone}'),
-                  ),
+                    Divider(
+                      color: Colors.grey, // Customize the color as needed
+                      thickness: 1.0, // Customize the thickness as needed
+                      indent: 16.0, // Customize the left indent as needed
+                      endIndent: 16.0, // Customize the right indent as needed
+                    ),
+                  ],
                 );
               },
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class HospitalServiceDetail extends StatelessWidget {
-  final Hospital hospital;
-
-  HospitalServiceDetail({required this.hospital});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Hospital Details'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Hospital: ${hospital.hospital}'),
-            Text('State: ${hospital.state}'),
-            Text('Phone: ${hospital.phone}'),
-          ],
-        ),
       ),
     );
   }
