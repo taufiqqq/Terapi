@@ -8,6 +8,7 @@ import '../../models/home_class.dart';
 import '../../widgets/circle_icon.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
+import 'dataset_page.dart';
 import 'hospital_list_screen.dart';
 
 class HomePage extends StatelessWidget {
@@ -64,12 +65,17 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.home),
-                title: Text(
-                  'Logo',
+                leading: const Icon(Icons.data_usage),
+                title: const Text(
+                  'Data Set',
                   style: TextStyle(fontSize: 20),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SetDataPage()),
+                  );
+                },
               ),
               ListTile(
                 leading: Icon(Icons.dataset_sharp),
