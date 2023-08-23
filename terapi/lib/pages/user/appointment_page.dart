@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:terapi/pages/user/online_meeting.dart';
+
+import '../../models/therapist.dart';
+import '../../providers/therapist_providers.dart';
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({Key? key}) : super(key: key);
@@ -14,34 +18,31 @@ enum FilterStatus { past, future, cancelled }
 class _AppointmentPageState extends State<AppointmentPage> {
   FilterStatus status = FilterStatus.future;
 
-  List<dynamic> schedules = [
+  List<Map<String, dynamic>> schedules = [
     {
-      "name": "Dr Hazimah",
-      "doctor_profile": "lib/assets/img/therapist-1.png",
-      "specialization": "Psychiatrist",
-      "status": "future",
-      "date": "111",
-      "day": "111",
-      "time": "111",
-    },
-    {
-      "name": "Dr Hazimah 2",
-      "doctor_profile": "lib/assets/img/therapist-1.png",
-      "specialization": "Islamic Consultant",
-      "status": "past",
-      "date": "111",
-      "day": "111",
-      "time": "111",
-    },
-    {
-      "name": "Dr Hazimah s",
-      "doctor_profile": "lib/assets/img/therapist-1.png",
-      "specialization": "Family Doctor",
+      "appointmentId": "cancelled",
+      "date": "2023-08-23",
       "status": "cancelled",
-      "date": "111",
-      "day": "111",
-      "time": "111",
-    }
+      "therapistId": "5",
+      "time": "18:00",
+      "uid": "BN3lVxppOshEEYqJ6VE4ZyXbKUV2",
+    },
+    {
+      "appointmentId": "future",
+      "date": "2023-11-20",
+      "status": "future",
+      "therapistId": "1",
+      "time": "10:00",
+      "uid": "BN3lVxppOshEEYqJ6VE4ZyXbKUV2",
+    },
+    {
+      "appointmentId": "past",
+      "date": "2023-08-20",
+      "status": "past",
+      "therapistId": "2",
+      "time": "14:00",
+      "uid": "BN3lVxppOshEEYqJ6VE4ZyXbKUV2",
+    },
   ];
 
   late List<dynamic> filteredSchedules;
@@ -134,47 +135,66 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                    schedule['doctor_profile'],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                            FutureBuilder<Therapist>(
+                              future: Future.microtask(() =>
+                                  TherapistProvider.getTherapistById(
+                                      schedule['therapistId'])),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return CircularProgressIndicator();
+                                }
+                                if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                }
+
+                                Therapist therapist = snapshot.data!;
+
+                                return Row(
                                   children: [
-                                    Text(
-                                      schedule['name'],
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
+                                    CircleAvatar(
+                                      backgroundImage: AssetImage(
+                                        therapist.gender == 'Male'
+                                            ? 'lib/assets/img/therapist-2.jpg'
+                                            : 'lib/assets/img/therapist-1.png',
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 5,
+                                      width: 10,
                                     ),
-                                    Text(
-                                      schedule['specialization'],
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          therapist.name,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          therapist.specialization,
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
-                                ),
-                              ],
+                                );
+                              },
                             ),
                             const SizedBox(
                               height: 15,
                             ),
                             ScheduleCard(
                               date: schedule['date'],
-                              day: schedule['day'],
                               time: schedule['time'],
                             ),
                             const SizedBox(height: 15),
@@ -194,7 +214,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     child: const Text('Reschedule'),
                                   ),
                                   FilledButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  (OnlineMeeting())));
+                                    },
                                     child: const Text('Join'),
                                   ),
                                 ] else if (status == FilterStatus.past) ...[
@@ -234,11 +260,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
 }
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard(
-      {Key? key, required this.date, required this.day, required this.time})
+  const ScheduleCard({Key? key, required this.date, required this.time})
       : super(key: key);
   final String date;
-  final String day;
   final String time;
 
   @override
@@ -256,25 +280,19 @@ class ScheduleCard extends StatelessWidget {
         children: <Widget>[
           const Icon(
             Icons.calendar_today,
-            /*  color: Config.primaryColor, */
             size: 15,
           ),
           const SizedBox(
             width: 5,
           ),
           Text(
-            '$day, $date',
-            /* style: const TextStyle(
-              color: Config.primaryColor,
-            ), */
+            date,
           ),
           const SizedBox(
             width: 20,
           ),
           const Icon(
             Icons.access_alarm,
-            /* 
-            color: Config.primaryColor, */
             size: 17,
           ),
           const SizedBox(

@@ -27,6 +27,13 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
+            CircleAvatar(
+              radius: 80.0,
+              backgroundImage: AssetImage(widget.therapist.gender == 'Male'
+                  ? 'lib/assets/img/therapist-2.jpg'
+                  : 'lib/assets/img/therapist-1.png'),
+              backgroundColor: Colors.white,
+            ),
             Text(widget.therapist.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -71,7 +78,7 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
             SizedBox(height: 10),
             FilledButton(
                 onPressed: () {
-                  _saveAppointment;
+                  _saveAppointment();
                 },
                 child: Text('Confirm'))
           ],
@@ -117,11 +124,11 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
   }
 
   String _formattedDate(DateTime dateTime) {
-    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+    return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
   }
 
   String _formattedTime(TimeOfDay time) {
-    return '${time.hour}:${time.minute.toString().padLeft(2, '0')}';
+    return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
   }
 
   void _selectDate(BuildContext context) {
@@ -133,7 +140,8 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
     ).then((date) {
       if (date != null) {
         setState(() {
-          _date = date;
+          _date =
+              DateTime(date.year, date.month, date.day); // Store formatted date
         });
       }
     });
@@ -178,5 +186,26 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
     });
   }
 
-  void _saveAppointment() {}
+  void _saveAppointment() {
+    final earliestTime = TimeOfDay(hour: 9, minute: 0);
+    final latestTime = TimeOfDay(hour: 21, minute: 0); // 9 PM
+
+    final selectedTimeInMinutes = _time.hour * 60 + _time.minute;
+    final earliestTimeInMinutes = earliestTime.hour * 60 + earliestTime.minute;
+    final latestTimeInMinutes = latestTime.hour * 60 + latestTime.minute;
+
+    if (selectedTimeInMinutes >= earliestTimeInMinutes &&
+        selectedTimeInMinutes <= latestTimeInMinutes) {
+      print(_formattedDate(_date));
+      print(_formattedTime(_time));
+      print(widget.therapist.therapistId);
+    } else {
+      // Display an error message using a Snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select a time between 9 AM and 9 PM.'),
+        ),
+      );
+    }
+  }
 }

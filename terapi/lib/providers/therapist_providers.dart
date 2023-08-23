@@ -3,7 +3,7 @@ import 'package:terapi/models/therapist.dart';
 class TherapistProvider {
   static List<Therapist> therapists = [
     Therapist(
-      uid: "1",
+      therapistId: "1",
       name: "Dr. Haji Ahmad",
       email: "ahmad@gmail.com",
       specialization: "Psychologist",
@@ -13,7 +13,7 @@ class TherapistProvider {
       totalreview: 4,
     ),
     Therapist(
-      uid: "2",
+      therapistId: "2",
       gender: "Male",
       email: "karim@gmail.com",
       name: "En Karim Anwar",
@@ -23,17 +23,17 @@ class TherapistProvider {
       totalreview: 21,
     ),
     Therapist(
-      uid: "3",
+      therapistId: "3",
       gender: "Female",
       email: "syaf@gmail.com",
       name: "Syafiqah Ilaya",
-      specialization: "Therapist",
+      specialization: "Career Therapist",
       location: "Johor Bahru",
       review: 4.0,
       totalreview: 50,
     ),
     Therapist(
-      uid: "4",
+      therapistId: "4",
       gender: "Male",
       email: "brown@gmail.com",
       name: "Brown Michael",
@@ -43,7 +43,7 @@ class TherapistProvider {
       totalreview: 5,
     ),
     Therapist(
-      uid: "5",
+      therapistId: "5",
       gender: "Female",
       email: "ajijah@gmail.com",
       name: "Dr. Ajijah",
@@ -53,7 +53,7 @@ class TherapistProvider {
       totalreview: 15,
     ),
     Therapist(
-      uid: "5",
+      therapistId: "6",
       gender: "Female",
       email: "ajijah@gmail.com",
       name: "Dr. Nuraini",
@@ -62,7 +62,25 @@ class TherapistProvider {
       review: 3.9,
       totalreview: 88,
     ),
+    Therapist(
+      therapistId: "7",
+      gender: "Male",
+      email: "lai@gmail.com",
+      name: "Mr Lai Xii ",
+      specialization: "Marriage and Family",
+      location: "Sabah",
+      review: 3.4,
+      totalreview: 88,
+    ),
   ];
 
-  // Add methods to manipulate the therapists list, if needed
+  static Therapist getTherapistById(String therapistId) {
+    for (Therapist therapist in therapists) {
+      if (therapist.therapistId == therapistId) {
+        return therapist;
+      }
+    }
+    // Throw an exception if no therapist is found with the given ID
+    throw Exception('Therapist not found with ID: $therapistId');
+  }
 }
