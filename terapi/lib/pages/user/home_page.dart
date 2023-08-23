@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
+import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/widgets/upcoming_box.dart';
 
@@ -7,6 +8,7 @@ import '../../models/home_class.dart';
 import '../../widgets/circle_icon.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
+import 'hospital_list_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -68,7 +70,21 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {},
-              )
+              ),
+              ListTile(
+                leading: Icon(Icons.dataset_sharp),
+                title: const Text(
+                  'Services',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HospitalListScreen()),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -138,9 +154,18 @@ class HomePage extends StatelessWidget {
                         title: "Progress",
                         imagePath: "lib/assets/img/progress.png"),
                   ),
-                  CircleIcon(
-                    box: ItemClass(
-                        title: "E-Book", imagePath: "lib/assets/img/book.png"),
+                  GestureDetector(
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "E-Book",
+                          imagePath: "lib/assets/img/book.png"),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => (EbookPage())));
+                    },
                   ),
                 ],
               ),

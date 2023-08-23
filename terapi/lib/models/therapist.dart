@@ -1,7 +1,7 @@
 import 'appointment.dart';
 
 class Therapist {
-  final String uid;
+  final String therapistId;
   final String name;
   final String gender;
   final String email;
@@ -10,11 +10,11 @@ class Therapist {
   final String specialization;
   final String? description;
   final double review;
-  final double totalreview;
+  final int totalreview;
   final String location;
 
   Therapist({
-    required this.uid,
+    required this.therapistId,
     required this.name,
     required this.gender,
     required this.email,

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:group_button/group_button.dart';
+import 'package:terapi/pages/user/therapist_page.dart';
 
 import '../../models/therapist.dart';
+import '../../providers/therapist_providers.dart';
 
 enum SortOption {
   Name,
@@ -18,68 +18,8 @@ class BookingPage extends StatefulWidget {
 }
 
 class _BookingPageState extends State<BookingPage> {
-  List<Therapist> therapists = [
-    Therapist(
-      uid: "1",
-      name: "Dr. Haji Ahmad",
-      email: "ahmad@gmail.com",
-      specialization: "Psychologist",
-      location: "Putrajaya",
-      gender: "Male",
-      review: 4.8,
-      totalreview: 4,
-    ),
-    Therapist(
-      uid: "2",
-      gender: "Male",
-      email: "karim@gmail.com",
-      name: "En Karim Anwar",
-      specialization: "Counselor",
-      location: "Cyberjaya",
-      review: 4.9,
-      totalreview: 21,
-    ),
-    Therapist(
-      uid: "3",
-      gender: "Female",
-      email: "nur@gmail.com",
-      name: "Nur Syafiqah Ilaya",
-      specialization: "Therapist",
-      location: "Johor Bahru",
-      review: 4.0,
-      totalreview: 50,
-    ),
-    Therapist(
-      uid: "4",
-      gender: "Male",
-      email: "brown@gmail.com",
-      name: "Brown Michael",
-      specialization: "Psychiatrist",
-      location: "Kuala Lumpur",
-      review: 4.3,
-      totalreview: 5,
-    ),
-    Therapist(
-      uid: "5",
-      gender: "Female",
-      email: "ajijah@gmail.com",
-      name: "Dr. Ajijah",
-      specialization: "Islamic Counsellor",
-      location: "Kuala Lumpur",
-      review: 4.7,
-      totalreview: 15,
-    ),
-    Therapist(
-      uid: "5",
-      gender: "Female",
-      email: "ajijah@gmail.com",
-      name: "Dr. Nuraini",
-      specialization: "Counsellor",
-      location: "Kelantan",
-      review: 3.9,
-      totalreview: 88,
-    ),
-  ];
+  List<Therapist> therapists = TherapistProvider.therapists;
+  
   int selectedGenderSegment = 0; // Initialize the selected gender segment
 
   void updateSelectedGenders(int segmentValue) {
@@ -263,7 +203,13 @@ class _BookingPageState extends State<BookingPage> {
                     ),
                   ),
                   onTap: () {
-                   
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            (TherapistPage(therapist: therapist)),
+                      ),
+                    );
                   },
                 );
               },

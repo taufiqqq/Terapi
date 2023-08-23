@@ -50,6 +50,9 @@ dependencies:
   uuid: ^3.0.7
   gap: ^3.0.1
   group_button: ^5.3.2
+  camera: ^0.10.5+3
+  path_provider: ^2.1.0
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:
