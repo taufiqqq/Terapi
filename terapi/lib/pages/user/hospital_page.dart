@@ -20,7 +20,6 @@ class HospitalPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
               MapScreen(), // Add the MapScreen here
               Container(
                 height: MediaQuery.of(context).size.height * 1.0,
