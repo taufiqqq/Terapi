@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/test_page.dart';
+import 'package:terapi/pages/user/therapist_page.dart';
 import 'package:terapi/widgets/upcoming_box.dart';
 
 import '../../models/home_class.dart';
+import '../../models/therapist.dart';
+import '../../providers/therapist_providers.dart';
 import '../../widgets/circle_icon.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
@@ -12,7 +15,9 @@ import 'dataset_page.dart';
 import 'hospital_list_screen.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final List<Therapist> therapists = TherapistProvider.therapists;
 
   @override
   Widget build(BuildContext context) {
@@ -190,21 +195,45 @@ class HomePage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  TherapistList(
-                    box: ItemClass(
-                        title: 'Dr Testing',
-                        imagePath: "lib/assets/img/therapist-1.png"),
-                  ),
-                  TherapistList(
-                    box: ItemClass(
-                        title: 'Testing',
-                        imagePath: "lib/assets/img/TERAPI.png"),
-                  ),
-                  TherapistList(
-                    box: ItemClass(
-                        title: 'Testing',
-                        imagePath: "lib/assets/img/TERAPI.png"),
-                  ),
+                  GestureDetector(
+                      child: TherapistList(
+                        box: ItemClass(
+                            title: 'Dr Haji Ahmad',
+                            imagePath: "lib/assets/img/therapist-2.jpg"),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    (TherapistPage(therapist: therapists[0]))));
+                      }),
+                  GestureDetector(
+                      child: TherapistList(
+                        box: ItemClass(
+                            title: 'Dr Ajijah',
+                            imagePath: "lib/assets/img/therapist-1.png"),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    (TherapistPage(therapist: therapists[4]))));
+                      }),
+                  GestureDetector(
+                      child: TherapistList(
+                        box: ItemClass(
+                            title: 'Syafiqah Ilaya',
+                            imagePath: "lib/assets/img/therapist-1.png"),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    (TherapistPage(therapist: therapists[2]))));
+                      }),
                 ],
               ),
             ),

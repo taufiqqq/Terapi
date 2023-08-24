@@ -16,7 +16,7 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   int index = 0;
 
-  List<Widget> pages = const [
+  List<Widget> pages =  [
     HomePage(),
     ChatPage(),
     BookingPage(),

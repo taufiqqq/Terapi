@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:terapi/pages/user/online_meeting.dart';
+import 'package:terapi/pages/user/review_therapist.dart';
+import 'package:terapi/pages/user/view_review.dart';
 
 import '../../models/therapist.dart';
 import '../../providers/therapist_providers.dart';
@@ -216,9 +218,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   FilledButton(
                                     onPressed: () async {
                                       Therapist therapist =
-                                          await TherapistProvider
-                                              .getTherapistById(
-                                                  schedule['therapistId']);
+                                          TherapistProvider.getTherapistById(
+                                              schedule['therapistId']);
 
                                       Navigator.push(
                                         context,
@@ -231,12 +232,36 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     child: const Text('Join'),
                                   ),
                                 ] else if (status == FilterStatus.past) ...[
-                                  Expanded(
-                                    child: OutlinedButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        'Review',
-                                      ),
+                                  OutlinedButton(
+                                    onPressed: () {
+                                      Therapist therapist =
+                                          TherapistProvider.getTherapistById(
+                                              schedule['therapistId']);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ViewResult(therapist: therapist, date : schedule['date']),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Appointment Result',
+                                    ),
+                                  ),
+                                  OutlinedButton(
+                                    onPressed: () {Therapist therapist =
+                                          TherapistProvider.getTherapistById(
+                                              schedule['therapistId']);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ReviewTherapist(therapist: therapist, date : schedule['date']),
+                                        ),
+                                      );},
+                                    child: const Text(
+                                      'Review Therapist',
                                     ),
                                   ),
                                 ] else if (status ==
