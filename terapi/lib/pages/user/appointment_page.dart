@@ -214,12 +214,19 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     child: const Text('Reschedule'),
                                   ),
                                   FilledButton(
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      Therapist therapist =
+                                          await TherapistProvider
+                                              .getTherapistById(
+                                                  schedule['therapistId']);
+
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  (OnlineMeeting())));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => OnlineMeeting(
+                                              therapist: therapist),
+                                        ),
+                                      );
                                     },
                                     child: const Text('Join'),
                                   ),

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
+import '../../models/therapist.dart';
+
 class OnlineMeeting extends StatefulWidget {
-  const OnlineMeeting({Key? key}) : super(key: key);
+  final Therapist therapist;
+
+  const OnlineMeeting({Key? key, required this.therapist}) : super(key: key);
 
   @override
   State<OnlineMeeting> createState() => _OnlineMeetingState();
@@ -55,16 +59,20 @@ class _OnlineMeetingState extends State<OnlineMeeting> {
                       top: 16,
                       right: 16,
                       child: Image.asset(
-                        'lib/assets/img/therapist-1.png',
-                        width: 120,
-                        height: 120,
+                        widget.therapist.gender == 'Male'
+                            ? 'lib/assets/img/therapist-2.jpg'
+                            : 'lib/assets/img/therapist-1.png',
+                        width: 150,
+                        height: 150,
                       ),
                     ),
                   ],
                 ),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                     ),
@@ -85,12 +93,4 @@ class _OnlineMeetingState extends State<OnlineMeeting> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(
-    const MaterialApp(
-      home: OnlineMeeting(),
-    ),
-  );
 }
