@@ -7,7 +7,7 @@ class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300, // Adjust the height to fit your needs
+      height: 240, // Adjust the height to fit your needs
       child: FlutterMap(
         options: MapOptions(
           center:
