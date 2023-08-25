@@ -14,7 +14,7 @@ class HospitalPage extends StatelessWidget {
         backgroundColor: Colors.blue.shade300,
         title: Text(
           hospital.hospital,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
       body: SafeArea(
@@ -24,7 +24,7 @@ class HospitalPage extends StatelessWidget {
               MapScreen(), // Add the MapScreen here
               Container(
                 height: MediaQuery.of(context).size.height * 1.0,
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   color: Colors.blue.shade300,
                   borderRadius: const BorderRadius.only(
