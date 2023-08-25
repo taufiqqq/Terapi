@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
+import 'package:terapi/pages/user/booking_page.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/pages/user/therapist_page.dart';
 import 'package:terapi/widgets/upcoming_box.dart';
@@ -53,16 +54,13 @@ class HomePage extends StatelessWidget {
             children: [
               const DrawerHeader(
                 child: Center(
-                  child: Text(
-                    'Logo',
-                    style: TextStyle(fontSize: 30),
-                  ),
+                  child: Image(image: AssetImage("lib/assets/img/logo.png"),)
                 ),
               ),
               ListTile(
                 leading: Icon(Icons.home),
                 title: Text(
-                  'Logo',
+                  'Home',
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
@@ -144,6 +142,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
+                      child: CircleIcon(
+                        box: ItemClass(
+                            title: "Therapist",
+                            imagePath: "lib/assets/img/doctor.png"),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => (BookingPage())));
+                      }),
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -154,11 +164,6 @@ class HomePage extends StatelessWidget {
                       box: ItemClass(
                           title: "Test", imagePath: "lib/assets/img/exam.png"),
                     ),
-                  ),
-                  CircleIcon(
-                    box: ItemClass(
-                        title: "Therapist",
-                        imagePath: "lib/assets/img/doctor.png"),
                   ),
                   CircleIcon(
                     box: ItemClass(

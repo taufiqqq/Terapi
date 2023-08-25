@@ -138,7 +138,7 @@ class _CareerTestState extends State<CareerTest> {
               ),
             );
           } else {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => (TestResult(
