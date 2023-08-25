@@ -90,10 +90,10 @@ class _ChatPageState extends State<ChatPage> {
       return Column(
         children: [
           GestureDetector(
-            child: const ListTile(
+            child: ListTile(
               leading: CircleAvatar(
-                backgroundColor:
-                    Colors.blue, // Set the background color of the CircleAvatar
+                backgroundColor: Colors.blue
+                    .shade200, // Set the background color of the CircleAvatar
                 child: Icon(
                   Icons.star, // Replace with the desired icon
                   color: Colors.white, // Set the color of the icon
@@ -131,11 +131,11 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 radius: 30,
               ),
-              title: Text(
+              title: const Text(
                 "New articles is out now !",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              subtitle: Row(
+              subtitle: const Row(
                 children: [
                   Text(
                     "Go find out our new released ...",
@@ -144,16 +144,16 @@ class _ChatPageState extends State<ChatPage> {
                 ],
               ),
               trailing: Text(
-                "40 min ago",
+                "25 min ago",
                 style: TextStyle(color: Colors.grey),
               ),
             ),
           ),
           GestureDetector(
-            child: const ListTile(
+            child: ListTile(
               leading: CircleAvatar(
-                backgroundColor:
-                    Colors.blue, // Set the background color of the CircleAvatar
+                backgroundColor: Colors.green
+                    .shade100, // Set the background color of the CircleAvatar
                 child: Icon(
                   Icons.access_time_outlined, // Replace with the desired icon
                   color: Colors.white, // Set the color of the icon
