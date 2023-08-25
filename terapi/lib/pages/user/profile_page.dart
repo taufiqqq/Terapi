@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:terapi/pages/user/book_page.dart';
 
 import '../login_page.dart';
+import 'appointment_page.dart';
+import 'booking_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -79,7 +82,8 @@ class ProfilePage extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 70,
-                  backgroundImage: AssetImage('lib/assets/img/user_picture.jpg'),
+                  backgroundImage:
+                      AssetImage('lib/assets/img/user_picture.jpg'),
                 ),
                 SizedBox(width: 10),
                 Column(
@@ -195,13 +199,20 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(height: 5),
                   InkWell(
                     onTap: () {
-                      // Navigate to the respective page for this row
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BookingPage()));
                     },
-                    child:
-                        buildClickableRow('My therapist', 'lib/assets/img/doctorblack.png'),
+                    child: buildClickableRow(
+                        'My therapist', 'lib/assets/img/doctorblack.png'),
                   ),
                   InkWell(
                     onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AppointmentPage()));
                       // Navigate to the respective page for this row
                     },
                     child: buildClickableRow(
@@ -211,14 +222,18 @@ class ProfilePage extends StatelessWidget {
                     onTap: () {
                       // Navigate to the respective page for this row
                     },
-                    child:
-                        buildClickableRow('Activity Log', 'lib/assets/img/history.png'),
+                    child: buildClickableRow(
+                        'Activity Log', 'lib/assets/img/history.png'),
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EbookPage()));
                       // Navigate to the respective page for this row
                     },
-                    child: buildClickableRow('My Ebook', 'lib/assets/img/bookblack.png'),
+                    child: buildClickableRow(
+                        'My Ebook', 'lib/assets/img/bookblack.png'),
                   ),
                   InkWell(
                     onTap: () async {
@@ -230,7 +245,8 @@ class ProfilePage extends StatelessWidget {
 
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()),
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
                           (route) =>
                               false, // Remove all previous routes from the stack
                         );
@@ -239,7 +255,8 @@ class ProfilePage extends StatelessWidget {
                             SnackBar(content: Text(e.toString())));
                       }
                     },
-                    child: buildClickableRow('Log out', 'lib/assets/img/logout.png'),
+                    child: buildClickableRow(
+                        'Log out', 'lib/assets/img/logout.png'),
                   ),
                 ],
               ),
@@ -265,4 +282,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class EBookPage {
 }

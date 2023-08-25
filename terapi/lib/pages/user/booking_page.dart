@@ -116,6 +116,15 @@ class _BookingPageState extends State<BookingPage> {
                                     });
                                     Navigator.pop(context);
                                   },
+                                ),ListTile(
+                                  title: Text("Sort by Nearest Location"),
+                                  onTap: () {
+                                    setState(() {
+                                      sortOption = SortOption.Review;
+                                      sortTherapists();
+                                    });
+                                    Navigator.pop(context);
+                                  },
                                 ),
                                 ListTile(
                                   title: Text("Sort by Review"),
