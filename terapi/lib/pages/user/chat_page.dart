@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/gpt_screen.dart';
-
-import 'manual_chat_screen.dart';
+import 'package:terapi/pages/user/manual_chat_screen.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -18,9 +17,6 @@ class _ChatPageState extends State<ChatPage> {
     if (sliding == 0) {
       return Column(
         children: [
-          // Content for Chat
-          // Replace with the widgets you want to show for Header 1
-          Text("Content for Header 1"),
           GestureDetector(
             onTap: () {
               Navigator.push(
@@ -93,9 +89,96 @@ class _ChatPageState extends State<ChatPage> {
     } else if (sliding == 1) {
       return Column(
         children: [
-          // Content for Notify
-          // Show a text widget for Header 2
-          Text("Content for Header 2"),
+          GestureDetector(
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundColor:
+                    Colors.blue, // Set the background color of the CircleAvatar
+                child: Icon(
+                  Icons.star, // Replace with the desired icon
+                  color: Colors.white, // Set the color of the icon
+                  size: 30, // Set the size of the icon
+                ),
+                radius: 30,
+              ),
+              title: Text(
+                "Rate your experience with therapist",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Text(
+                    "How many stars would you ..",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+              trailing: Text(
+                "10 min ago",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+          GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.brown
+                    .shade200, // Set the background color of the CircleAvatar
+                child: Icon(
+                  Icons.book, // Replace with the desired icon
+                  color: Colors.white, // Set the color of the icon
+                  size: 30, // Set the size of the icon
+                ),
+                radius: 30,
+              ),
+              title: Text(
+                "New articles is out now !",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Text(
+                    "Go find out our new released ...",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+              trailing: Text(
+                "40 min ago",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+          GestureDetector(
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundColor:
+                    Colors.blue, // Set the background color of the CircleAvatar
+                child: Icon(
+                  Icons.access_time_outlined, // Replace with the desired icon
+                  color: Colors.white, // Set the color of the icon
+                  size: 30, // Set the size of the icon
+                ),
+                radius: 30,
+              ),
+              title: Text(
+                "Don’t forget your appointment tomorrow !",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Text(
+                    "8 am - 10 am",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+              trailing: Text(
+                "40 min ago",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
         ],
       );
     } else {
