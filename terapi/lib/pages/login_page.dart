@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/register_page.dart';
 
 import '../widgets/widget_tree.dart';
+import '../widgets/widget_tree_therapist.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'login';
@@ -91,12 +92,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _handleLogin() async {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const WidgetTree(),
-      ),
-    );
+    final String email = _emailController.text.trim();
+
+    if (email == "therapist@gmail.com") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TherapistWidgetTree(),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const WidgetTree(),
+        ),
+      );
+    }
   }
 
   void _handleForgotPassword() {
