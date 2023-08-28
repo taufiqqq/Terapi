@@ -11,17 +11,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
-        color: Colors.blue[400],
         onPressed: () {
           Navigator.pop(context); // Add navigation logic for going back
         },
       ),
-      title: Text(title, textAlign: TextAlign.center, style: TextStyle(color: Colors.blue[400],),),
+      title: Text(title),
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
-
-

@@ -34,7 +34,7 @@ class _ChatPageState extends State<ChatPage> {
                 radius: 30,
               ),
               title: Text(
-                "Therapist ChatBot",
+                "Tiana (AI therapy help)",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Row(
@@ -57,18 +57,18 @@ class _ChatPageState extends State<ChatPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const ManualScreen();
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg",);
                   },
                 ),
               );
             },
             child: const ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                backgroundImage: AssetImage("lib/assets/img/therapist-2.jpg"),
                 radius: 30,
               ),
               title: Text(
-                "Dr Dom",
+                "En Karim Anwar",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Row(
@@ -77,7 +77,73 @@ class _ChatPageState extends State<ChatPage> {
                     Icons.done_all,
                   ),
                   Text(
-                    "Chat With Me",
+                    "I hope you can be better",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-1.png",);
+                  },
+                ),
+              );
+            },
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage("lib/assets/img/therapist-1.png"),
+                radius: 30,
+              ),
+              title: Text(
+                "Syafiqah Ilaya",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Icon(
+                    Icons.done_all,
+                  ),
+                  Text(
+                    "Thank you",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg",);
+                  },
+                ),
+              );
+            },
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage("lib/assets/img/therapist-2.jpg"),
+                radius: 30,
+              ),
+              title: Text(
+                "Brown Michael",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Icon(
+                    Icons.done_all,
+                  ),
+                  Text(
+                    "Huge thanks for the help",
                     style: TextStyle(fontSize: 13),
                   )
                 ],
