@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/booking_page.dart';
+import 'package:terapi/pages/user/pie_chart.dart';
 import 'package:terapi/pages/user/progress.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/pages/user/therapist_page.dart';
@@ -93,6 +94,19 @@ class HomePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => HospitalListScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.dataset_sharp),
+                title: const Text(
+                  'Pie Chart',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PieChartPage()),
                   );
                 },
               ),

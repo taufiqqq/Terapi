@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
-
-import '../../widgets/data_table_widget.dart';
-
+import 'package:terapi/widgets/data_table_widget.dart';
 
 class PieChartPage extends StatelessWidget {
   Map<String, double> dataMap = {
