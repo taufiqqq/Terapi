@@ -1,14 +1,30 @@
-import '../models/appointment.dart';
+class AppointmentProvider {
+  List<Map<String, dynamic>> schedules = [];
+  static final AppointmentProvider _instance = AppointmentProvider._internal();
 
-class AppointmentProvider{
-  List<Appointment> _appointments = [];
-
-  AppointmentProvider() {
-    _initializeAppointments();
+  factory AppointmentProvider() {
+    return _instance;
   }
 
-  void _initializeAppointments() {
-    List<Map<String, dynamic>> schedules = [
+  AppointmentProvider._internal();
+  
+  void addAppointment(
+      String date, String status, String therapistId, String time, String uid) {
+    // Create a new map for the appointment
+    Map<String, dynamic> newAppointment = {
+      "date": date,
+      "status": status,
+      "therapistId": therapistId,
+      "time": time,
+      "uid": uid,
+    };
+
+    // Add the new appointment to the schedules list
+    schedules.add(newAppointment);
+  }
+
+  void initialize() {
+    schedules = [
       {
         "date": "2023-08-23",
         "status": "cancelled",
@@ -31,21 +47,33 @@ class AppointmentProvider{
         "uid": "BN3lVxppOshEEYqJ6VE4ZyXbKUV2",
       },
     ];
-
-    _appointments = schedules
-        .map((schedule) => Appointment(
-              date: schedule['date'],
-              status: schedule['status'],
-              therapistId: schedule['therapistId'],
-              time: schedule['time'],
-              uid: schedule['uid'],
-            ))
-        .toList();
   }
 
-  List<Appointment> get appointments => _appointments;
+  void cancelAppointment(
+      String date, String therapistId, String time, String uid) {
+    final appointmentIndex = schedules.indexWhere((appointment) =>
+        appointment['date'] == date &&
+        appointment['therapistId'] == therapistId &&
+        appointment['time'] == time &&
+        appointment['uid'] == uid);
 
-  void addAppointment(Appointment appointment) {
-    _appointments.add(appointment);
+    if (appointmentIndex != -1) {
+      schedules[appointmentIndex]['status'] = 'cancelled';
+    }
   }
+
+  void rescheduleAppointment(String date, String time, String therapistId, String uid, String newDate, String newTime) {
+  final appointmentIndex = schedules.indexWhere((appointment) =>
+      appointment['date'] == date &&
+      appointment['time'] == time &&
+      appointment['therapistId'] == therapistId &&
+      appointment['uid'] == uid);
+
+  if (appointmentIndex != -1) {
+    schedules[appointmentIndex]['date'] = newDate;
+    schedules[appointmentIndex]['time'] = newTime;
+  }
+}
+
+  List<Map<String, dynamic>> get allSchedules => schedules;
 }

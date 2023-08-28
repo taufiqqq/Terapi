@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/widgets/widget_tree.dart';
 import '../../models/therapist.dart';
+import '../../providers/appointment_providers.dart';
 
 class AppointmentDetail extends StatefulWidget {
   final Therapist therapist;
@@ -202,8 +203,23 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
       print(_formattedTime(_time));
       print(widget.therapist.therapistId);
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WidgetTree()));
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>AppointmentPage()));
+      AppointmentProvider newAppointment = AppointmentProvider();
+
+      newAppointment.addAppointment(
+          _formattedDate(_date),
+          'future',
+          widget.therapist.therapistId,
+          _formattedTime(_time),
+          'BN3lVxppOshEEYqJ6VE4ZyXbKUV2');
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => WidgetTree()),
+        (route) => false, // This prevents going back to any previous routes
+      );
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AppointmentPage()));
     } else {
       // Display an error message using a Snackbar
       ScaffoldMessenger.of(context).showSnackBar(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/therapist.dart';
+import '../../providers/appointment_providers.dart';
 
 class RescheduleAppointment extends StatefulWidget {
   RescheduleAppointment(
@@ -18,8 +19,11 @@ class RescheduleAppointment extends StatefulWidget {
 }
 
 class _RescheduleAppointmentState extends State<RescheduleAppointment> {
+  AppointmentProvider appointmentProvider = AppointmentProvider();
   late DateTime _date;
   late TimeOfDay _time;
+  late DateTime _initialDate;
+  late TimeOfDay _initialTime;
   String _method = 'Online';
   String _reasons = '';
 
@@ -28,11 +32,13 @@ class _RescheduleAppointmentState extends State<RescheduleAppointment> {
     super.initState();
     // Initialize _date and _time using widget properties
     _date = DateTime.parse(widget.date);
+    _initialDate = _date;
     String timeString = widget.time;
     List<String> parts = timeString.split(':');
     int hour = int.parse(parts[0]);
     int minute = int.parse(parts[1]);
     _time = TimeOfDay(hour: hour, minute: minute);
+    _initialTime = _time;
   }
 
   @override
@@ -217,6 +223,15 @@ class _RescheduleAppointmentState extends State<RescheduleAppointment> {
       print(_formattedDate(_date));
       print(_formattedTime(_time));
       print(widget.therapist.therapistId);
+
+      appointmentProvider.rescheduleAppointment(
+        _formattedDate(_initialDate),
+        _formattedTime(_initialTime),
+        widget.therapist.therapistId,
+        'BN3lVxppOshEEYqJ6VE4ZyXbKUV2',
+        _formattedDate(_date),
+        _formattedTime(_time),
+      );
 
       Navigator.pop(context);
     } else {
