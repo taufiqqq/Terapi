@@ -54,8 +54,9 @@ class HomePage extends StatelessWidget {
             children: [
               const DrawerHeader(
                 child: Center(
-                  child: Image(image: AssetImage("lib/assets/img/logo.png"),)
-                ),
+                    child: Image(
+                  image: AssetImage("lib/assets/img/logo.png"),
+                )),
               ),
               ListTile(
                 leading: Icon(Icons.home),
@@ -70,7 +71,7 @@ class HomePage extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.data_usage),
                 title: const Text(
-                  'Data Set',
+                  'Discover',
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
