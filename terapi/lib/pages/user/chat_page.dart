@@ -57,7 +57,7 @@ class _ChatPageState extends State<ChatPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg",);
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg", drName: "En Karim Anwar",);
                   },
                 ),
               );
@@ -90,7 +90,7 @@ class _ChatPageState extends State<ChatPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ManualScreen(imagepath: "lib/assets/img/therapist-1.png",);
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-1.png", drName:  "Syafiqah Ilaya",);
                   },
                 ),
               );
@@ -123,7 +123,7 @@ class _ChatPageState extends State<ChatPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg",);
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg", drName: "Brown Michael",);
                   },
                 ),
               );

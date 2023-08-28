@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/chat_sample.dart';
 
 class ManualScreen extends StatelessWidget {
-  ManualScreen({super.key, required this.imagepath});
+  ManualScreen({super.key, required this.imagepath, required this.drName});
   final String imagepath;
+  final String drName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +22,11 @@ class ManualScreen extends StatelessWidget {
                   radius: 25,
                   backgroundImage: AssetImage(imagepath),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 10),
+                 Padding(
+                  padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    "Dr Name",
-                    style: TextStyle(color: Colors.white),
+                    drName,
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ],
