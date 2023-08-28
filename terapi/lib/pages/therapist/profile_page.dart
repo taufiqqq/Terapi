@@ -7,6 +7,7 @@ import 'package:terapi/pages/therapist/therapist_money.dart';
 import 'package:terapi/pages/user/book_page.dart';
 
 import '../login_page.dart';
+import 'my_review.dart';
 
 class TherapistProfilePage extends StatelessWidget {
   const TherapistProfilePage({super.key});
@@ -135,23 +136,32 @@ class TherapistProfilePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TherapistMoney()));
+                              builder: (context) => ViewAllReviewsPage()));
                     },
                     child:
                         buildClickableRowIcon('My Reviews', Icon(Icons.star)),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TherapistAppointmentPage(
+                              initialStatus: FilterStatus.past),
+                        ),
+                      );
+                    },
                     child: buildClickableRow(
                         'My customers', 'lib/assets/img/doctorblack.png'),
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  TherapistAppointmentPage()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TherapistAppointmentPage(),
+                        ),
+                      );
                     },
                     child: buildClickableRow(
                         'Appointments', 'lib/assets/img/calendarblack.png'),

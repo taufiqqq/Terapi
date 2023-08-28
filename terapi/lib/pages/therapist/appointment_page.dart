@@ -1,14 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:terapi/pages/therapist/appointment_comment.dart';
 import 'package:terapi/pages/user/online_meeting.dart';
 
 import '../../models/user.dart';
 import '../../models/user.dart';
+import 'online_meeting.dart';
 
 class TherapistAppointmentPage extends StatefulWidget {
-  const TherapistAppointmentPage({Key? key}) : super(key: key);
+  final FilterStatus? initialStatus;
 
+  const TherapistAppointmentPage({Key? key, this.initialStatus})
+      : super(key: key);
+
+  TherapistAppointmentPage.withInitialStatus(FilterStatus status)
+      : initialStatus = status,
+        super(key: null);
   @override
   State<TherapistAppointmentPage> createState() =>
       _TherapistAppointmentPageState();
@@ -28,6 +36,13 @@ class _TherapistAppointmentPageState extends State<TherapistAppointmentPage> {
     UserClient(
         uid: '6', email: 'thana@gmail.com', name: 'Thanabalan A/L Muthu'),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialStatus != null) status = widget.initialStatus!;
+    updateFilteredSchedules();
+  }
 
   List<Map<String, dynamic>> schedules = [
     {
@@ -75,12 +90,6 @@ class _TherapistAppointmentPageState extends State<TherapistAppointmentPage> {
   ];
 
   late List<dynamic> filteredSchedules;
-
-  @override
-  void initState() {
-    super.initState();
-    updateFilteredSchedules();
-  }
 
   void updateFilteredSchedules() {
     filteredSchedules = schedules.where((schedule) {
@@ -217,7 +226,88 @@ class _TherapistAppointmentPageState extends State<TherapistAppointmentPage> {
                             Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
-                                children: []),
+                                children: [
+                                  if (status == FilterStatus.future) ...[
+                                    OutlinedButton(
+                                      onPressed: () {
+                                        // Show the confirmation dialog
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title:
+                                                  Text('Confirm Cancellation'),
+                                              content: Text(
+                                                  'Are you sure you want to cancel this appointment?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog
+                                                  },
+                                                  child: Text('No'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    // Close the dialog
+                                                    Navigator.of(context).pop();
+
+                                                    // Refresh the UI by calling setState
+                                                    setState(() {});
+                                                  },
+                                                  child: Text('Yes'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: const Text('Cancel',
+                                          style: TextStyle(color: Colors.red)),
+                                    ),
+                                    FilledButton(
+                                      onPressed: () async {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                TherapistOnlineMeeting(),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text('Join'),
+                                    ),
+                                  ] else if (status == FilterStatus.past) ...[
+                                    Expanded(
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          UserClient user = getUserClientById(
+                                              schedule['uid']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      (AppointmentComment(
+                                                          name: user.name,
+                                                          date: schedule[
+                                                              'date']))));
+                                        },
+                                        child: const Text(
+                                          'Give Comment',
+                                        ),
+                                      ),
+                                    ),
+                                  ] else if (status ==
+                                      FilterStatus.cancelled) ...[
+                                    Expanded(
+                                      child: Text(
+                                        'Cancelled',
+                                        style: TextStyle(color: Colors.red),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ]
+                                ]),
                           ],
                         ),
                       ),
@@ -286,8 +376,8 @@ class ScheduleCard extends StatelessWidget {
               child: Text(
             time,
             /* style: const TextStyle(
-              color: Config.primaryColor,
-            ), */
+                color: Config.primaryColor,
+              ), */
           ))
         ],
       ),

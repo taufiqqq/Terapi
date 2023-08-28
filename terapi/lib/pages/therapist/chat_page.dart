@@ -29,7 +29,7 @@ class _TherapistChatPageState extends State<TherapistChatPage> {
             },
             child: const ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                backgroundImage: AssetImage("lib/assets/img/user_picture.jpg"),
                 radius: 30,
               ),
               title: Text(
@@ -62,7 +62,7 @@ class _TherapistChatPageState extends State<TherapistChatPage> {
             },
             child: const ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                backgroundImage: AssetImage("lib/assets/img/user_picture.jpg"),
                 radius: 30,
               ),
               title: Text(
@@ -95,7 +95,7 @@ class _TherapistChatPageState extends State<TherapistChatPage> {
             },
             child: const ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                backgroundImage: AssetImage("lib/assets/img/user_picture.jpg"),
                 radius: 30,
               ),
               title: Text(
@@ -128,7 +128,7 @@ class _TherapistChatPageState extends State<TherapistChatPage> {
             },
             child: const ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                backgroundImage: AssetImage("lib/assets/img/user_picture.jpg"),
                 radius: 30,
               ),
               title: Text(

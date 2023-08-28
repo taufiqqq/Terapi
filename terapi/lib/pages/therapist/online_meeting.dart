@@ -4,9 +4,8 @@ import 'package:camera/camera.dart';
 import '../../models/therapist.dart';
 
 class TherapistOnlineMeeting extends StatefulWidget {
-  final Therapist therapist;
 
-  const TherapistOnlineMeeting({Key? key, required this.therapist})
+  const TherapistOnlineMeeting({Key? key,})
       : super(key: key);
 
   @override
@@ -60,7 +59,7 @@ class _OnlineMeetingState extends State<TherapistOnlineMeeting> {
                       top: 16,
                       right: 16,
                       child: Image.asset(
-                        "lib/assets/img/user_profile.jpg",
+                        "lib/assets/img/user_picture.jpg",
                         width: 150,
                         height: 150,
                       ),
@@ -75,9 +74,7 @@ class _OnlineMeetingState extends State<TherapistOnlineMeeting> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                     ),
-                    child: const Text(
-                      'Disconnect',
-                      style: TextStyle(color: Colors.white),
+                    child: const Icon(Icons.phone, color: Colors.white,
                     ),
                   ),
                 ),

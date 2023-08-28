@@ -19,7 +19,7 @@ class TherapistManualScreen extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 25,
-                  backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                  backgroundImage: AssetImage("lib/assets/img/user_picture.jpg"),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
