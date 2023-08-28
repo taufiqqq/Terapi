@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/booking_page.dart';
+import 'package:terapi/pages/user/post.dart';
 import 'package:terapi/pages/user/progress.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/pages/user/therapist_page.dart';
@@ -159,18 +160,6 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TestPage()),
-                      );
-                    },
-                    child: CircleIcon(
-                      box: ItemClass(
-                          title: "Test", imagePath: "lib/assets/img/exam.png"),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
                         MaterialPageRoute(builder: (context) => MyProgress()),
                       );
                     },
@@ -178,6 +167,31 @@ class HomePage extends StatelessWidget {
                       box: ItemClass(
                           title: "Progress",
                           imagePath: "lib/assets/img/progress.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserPost()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Posts",
+                          imagePath: "lib/assets/img/progress.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TestPage()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Test", imagePath: "lib/assets/img/exam.png"),
                     ),
                   ),
                   GestureDetector(
@@ -283,7 +297,10 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SetDataPage.basic(initialSliding: 1,)),
+                        MaterialPageRoute(
+                            builder: (context) => SetDataPage.basic(
+                                  initialSliding: 1,
+                                )),
                       );
                     },
                     child: SuggestArticle(
