@@ -137,7 +137,7 @@ class _PersonalityTestState extends State<PersonalityTest> {
               ),
             );
           } else {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>

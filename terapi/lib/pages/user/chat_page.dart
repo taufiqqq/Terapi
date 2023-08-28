@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/gpt_screen.dart';
-
-import 'manual_chat_screen.dart';
+import 'package:terapi/pages/user/manual_chat_screen.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -18,9 +17,6 @@ class _ChatPageState extends State<ChatPage> {
     if (sliding == 0) {
       return Column(
         children: [
-          // Content for Chat
-          // Replace with the widgets you want to show for Header 1
-          Text("Content for Header 1"),
           GestureDetector(
             onTap: () {
               Navigator.push(
@@ -38,7 +34,7 @@ class _ChatPageState extends State<ChatPage> {
                 radius: 30,
               ),
               title: Text(
-                "Therapist ChatBot",
+                "Tiana (AI therapy help)",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Row(
@@ -61,18 +57,18 @@ class _ChatPageState extends State<ChatPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const ManualScreen();
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg", drName: "En Karim Anwar",);
                   },
                 ),
               );
             },
             child: const ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                backgroundImage: AssetImage("lib/assets/img/therapist-2.jpg"),
                 radius: 30,
               ),
               title: Text(
-                "Dr Dom",
+                "En Karim Anwar",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Row(
@@ -81,7 +77,73 @@ class _ChatPageState extends State<ChatPage> {
                     Icons.done_all,
                   ),
                   Text(
-                    "Chat With Me",
+                    "I hope you can be better",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-1.png", drName:  "Syafiqah Ilaya",);
+                  },
+                ),
+              );
+            },
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage("lib/assets/img/therapist-1.png"),
+                radius: 30,
+              ),
+              title: Text(
+                "Syafiqah Ilaya",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Icon(
+                    Icons.done_all,
+                  ),
+                  Text(
+                    "Thank you",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ManualScreen(imagepath: "lib/assets/img/therapist-2.jpg", drName: "Brown Michael",);
+                  },
+                ),
+              );
+            },
+            child: const ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage("lib/assets/img/therapist-2.jpg"),
+                radius: 30,
+              ),
+              title: Text(
+                "Brown Michael",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Icon(
+                    Icons.done_all,
+                  ),
+                  Text(
+                    "Huge thanks for the help",
                     style: TextStyle(fontSize: 13),
                   )
                 ],
@@ -93,9 +155,96 @@ class _ChatPageState extends State<ChatPage> {
     } else if (sliding == 1) {
       return Column(
         children: [
-          // Content for Notify
-          // Show a text widget for Header 2
-          Text("Content for Header 2"),
+          GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue
+                    .shade200, // Set the background color of the CircleAvatar
+                child: Icon(
+                  Icons.star, // Replace with the desired icon
+                  color: Colors.white, // Set the color of the icon
+                  size: 30, // Set the size of the icon
+                ),
+                radius: 30,
+              ),
+              title: Text(
+                "Rate your experience with therapist",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Text(
+                    "How many stars would you ..",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+              trailing: Text(
+                "10 min ago",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+          GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.brown
+                    .shade200, // Set the background color of the CircleAvatar
+                child: Icon(
+                  Icons.book, // Replace with the desired icon
+                  color: Colors.white, // Set the color of the icon
+                  size: 30, // Set the size of the icon
+                ),
+                radius: 30,
+              ),
+              title: const Text(
+                "New articles is out now !",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Row(
+                children: [
+                  Text(
+                    "Go find out our new released ...",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+              trailing: Text(
+                "25 min ago",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+          GestureDetector(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.green
+                    .shade100, // Set the background color of the CircleAvatar
+                child: Icon(
+                  Icons.access_time_outlined, // Replace with the desired icon
+                  color: Colors.white, // Set the color of the icon
+                  size: 30, // Set the size of the icon
+                ),
+                radius: 30,
+              ),
+              title: Text(
+                "Don’t forget your appointment tomorrow !",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: [
+                  Text(
+                    "8 am - 10 am",
+                    style: TextStyle(fontSize: 13),
+                  )
+                ],
+              ),
+              trailing: Text(
+                "40 min ago",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
         ],
       );
     } else {

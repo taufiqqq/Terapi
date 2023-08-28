@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 import 'package:terapi/pages/user/online_meeting.dart';
+import 'package:terapi/pages/user/review_therapist.dart';
+import 'package:terapi/pages/user/view_review.dart';
 
 import '../../models/therapist.dart';
+import '../../providers/appointment_providers.dart';
 import '../../providers/therapist_providers.dart';
+import 'appointment_reschedule.dart';
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({Key? key}) : super(key: key);
@@ -17,43 +22,18 @@ enum FilterStatus { past, future, cancelled }
 
 class _AppointmentPageState extends State<AppointmentPage> {
   FilterStatus status = FilterStatus.future;
-
-  List<Map<String, dynamic>> schedules = [
-    {
-      "appointmentId": "cancelled",
-      "date": "2023-08-23",
-      "status": "cancelled",
-      "therapistId": "5",
-      "time": "18:00",
-      "uid": "BN3lVxppOshEEYqJ6VE4ZyXbKUV2",
-    },
-    {
-      "appointmentId": "future",
-      "date": "2023-11-20",
-      "status": "future",
-      "therapistId": "1",
-      "time": "10:00",
-      "uid": "BN3lVxppOshEEYqJ6VE4ZyXbKUV2",
-    },
-    {
-      "appointmentId": "past",
-      "date": "2023-08-20",
-      "status": "past",
-      "therapistId": "2",
-      "time": "14:00",
-      "uid": "BN3lVxppOshEEYqJ6VE4ZyXbKUV2",
-    },
-  ];
-
   late List<dynamic> filteredSchedules;
-
+  late AppointmentProvider appointmentProvider;
   @override
   void initState() {
     super.initState();
+    appointmentProvider = AppointmentProvider();
     updateFilteredSchedules();
   }
 
   void updateFilteredSchedules() {
+    final schedules = appointmentProvider.allSchedules;
+
     filteredSchedules = schedules.where((schedule) {
       switch (schedule['status']) {
         case 'future':
@@ -68,6 +48,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
       }
       return schedule['status'] == status.toString();
     }).toList();
+
+    if (status == FilterStatus.future) {
+      filteredSchedules.sort((a, b) {
+        final DateTime dateTimeA = DateTime.parse('${a['date']} ${a['time']}');
+        final DateTime dateTimeB = DateTime.parse('${b['date']} ${b['time']}');
+        return dateTimeA.compareTo(dateTimeB);
+      });
+    }
   }
 
   @override
@@ -114,142 +102,271 @@ class _AppointmentPageState extends State<AppointmentPage> {
               ),
               Gap(10),
               Expanded(
-                child: ListView.builder(
-                  itemCount: filteredSchedules.length,
-                  itemBuilder: ((context, index) {
-                    var schedule = filteredSchedules[index];
-                    bool isLastElement = filteredSchedules.length - 1 == index;
+                child: filteredSchedules.isEmpty
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.sentiment_satisfied,
+                            size: 48,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'No appointment yet',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      )
+                    : ListView.builder(
+                        itemCount: filteredSchedules.length,
+                        itemBuilder: ((context, index) {
+                          var schedule = filteredSchedules[index];
+                          bool isLastElement =
+                              filteredSchedules.length - 1 == index;
 
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: Colors.grey,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: !isLastElement
-                          ? const EdgeInsets.only(bottom: 20)
-                          : EdgeInsets.zero,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            FutureBuilder<Therapist>(
-                              future: Future.microtask(() =>
-                                  TherapistProvider.getTherapistById(
-                                      schedule['therapistId'])),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return CircularProgressIndicator();
-                                }
-                                if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                }
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                color: Colors.grey,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            margin: !isLastElement
+                                ? const EdgeInsets.only(bottom: 20)
+                                : EdgeInsets.zero,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  FutureBuilder<Therapist>(
+                                    future: Future.microtask(() =>
+                                        TherapistProvider.getTherapistById(
+                                            schedule['therapistId'])),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return CircularProgressIndicator();
+                                      }
+                                      if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      }
 
-                                Therapist therapist = snapshot.data!;
+                                      Therapist therapist = snapshot.data!;
 
-                                return Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundImage: AssetImage(
-                                        therapist.gender == 'Male'
-                                            ? 'lib/assets/img/therapist-2.jpg'
-                                            : 'lib/assets/img/therapist-1.png',
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          therapist.name,
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w700,
+                                      return Row(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                              therapist.gender == 'Male'
+                                                  ? 'lib/assets/img/therapist-2.jpg'
+                                                  : 'lib/assets/img/therapist-1.png',
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          therapist.specialization,
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
+                                          const SizedBox(
+                                            width: 10,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            ScheduleCard(
-                              date: schedule['date'],
-                              time: schedule['time'],
-                            ),
-                            const SizedBox(height: 15),
-
-                            //condition please
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                if (status == FilterStatus.future) ...[
-                                  OutlinedButton(
-                                    onPressed: () {},
-                                    child: const Text('Cancel',
-                                        style: TextStyle(color: Colors.red)),
-                                  ),
-                                  OutlinedButton(
-                                    onPressed: () {},
-                                    child: const Text('Reschedule'),
-                                  ),
-                                  FilledButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  (OnlineMeeting())));
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                therapist.name,
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                therapist.specialization,
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
                                     },
-                                    child: const Text('Join'),
                                   ),
-                                ] else if (status == FilterStatus.past) ...[
-                                  Expanded(
-                                    child: OutlinedButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        'Review',
-                                      ),
-                                    ),
+                                  const SizedBox(
+                                    height: 15,
                                   ),
-                                ] else if (status ==
-                                    FilterStatus.cancelled) ...[
-                                  Expanded(
-                                    child: Text(
-                                      'Cancelled',
-                                      style: TextStyle(color: Colors.red),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                  ScheduleCard(
+                                    date: schedule['date'],
+                                    time: schedule['time'],
                                   ),
-                                ]
-                              ],
+                                  const SizedBox(height: 15),
+
+                                  //condition please
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      if (status == FilterStatus.future) ...[
+                                        OutlinedButton(
+                                          onPressed: () {
+                                            // Show the confirmation dialog
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'Confirm Cancellation'),
+                                                  content: Text(
+                                                      'Are you sure you want to cancel this appointment?'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(); // Close the dialog
+                                                      },
+                                                      child: Text('No'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        // User confirmed, cancel the appointment
+                                                        appointmentProvider
+                                                            .cancelAppointment(
+                                                          schedule['date'],
+                                                          schedule[
+                                                              'therapistId'],
+                                                          schedule['time'],
+                                                          schedule['uid'],
+                                                        );
+
+                                                        // Update the filtered schedules
+                                                        updateFilteredSchedules();
+
+                                                        // Close the dialog
+                                                        Navigator.of(context)
+                                                            .pop();
+
+                                                        // Refresh the UI by calling setState
+                                                        setState(() {});
+                                                      },
+                                                      child: Text('Yes'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: const Text('Cancel',
+                                              style:
+                                                  TextStyle(color: Colors.red)),
+                                        ),
+                                        OutlinedButton(
+                                          onPressed: () async {
+                                            Therapist therapist =
+                                                TherapistProvider
+                                                    .getTherapistById(schedule[
+                                                        'therapistId']);
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    RescheduleAppointment(
+                                                  therapist: therapist,
+                                                  date: schedule['date'],
+                                                  time: schedule['time'],
+                                                ),
+                                              ),
+                                            ).then((_) {
+                                              updateFilteredSchedules();
+                                              setState(() {});
+                                            });
+                                          },
+                                          child: const Text('Reschedule'),
+                                        ),
+                                        FilledButton(
+                                          onPressed: () async {
+                                            Therapist therapist =
+                                                TherapistProvider
+                                                    .getTherapistById(schedule[
+                                                        'therapistId']);
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    OnlineMeeting(
+                                                        therapist: therapist),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text('Join'),
+                                        ),
+                                      ] else if (status ==
+                                          FilterStatus.past) ...[
+                                        OutlinedButton(
+                                          onPressed: () {
+                                            Therapist therapist =
+                                                TherapistProvider
+                                                    .getTherapistById(schedule[
+                                                        'therapistId']);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ViewResult(
+                                                        therapist: therapist,
+                                                        date: schedule['date']),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Appointment Result',
+                                          ),
+                                        ),
+                                        OutlinedButton(
+                                          onPressed: () {
+                                            Therapist therapist =
+                                                TherapistProvider
+                                                    .getTherapistById(schedule[
+                                                        'therapistId']);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ReviewTherapist(
+                                                        therapist: therapist,
+                                                        date: schedule['date']),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Review Therapist',
+                                          ),
+                                        ),
+                                      ] else if (status ==
+                                          FilterStatus.cancelled) ...[
+                                        Expanded(
+                                          child: Text(
+                                            'Cancelled',
+                                            style: TextStyle(color: Colors.red),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ]
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
+                          );
+                        }),
                       ),
-                    );
-                  }),
-                ),
               ),
             ],
           ),

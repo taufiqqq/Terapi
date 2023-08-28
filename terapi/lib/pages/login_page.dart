@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/register_page.dart';
 
 import '../widgets/widget_tree.dart';
+import '../widgets/widget_tree_therapist.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'login';
@@ -92,31 +93,21 @@ class _LoginPageState extends State<LoginPage> {
 
   void _handleLogin() async {
     final String email = _emailController.text.trim();
-    final String password = _passwordController.text.trim();
 
-    if (EmailValidator.validate(email)) {
-      User? user = await loginUsingEmailPassword(
-          email: email, password: password, context: context);
-
-      if (user != null) {
-        // Successful login, you can navigate to the next screen or perform any action
-        // ignore: avoid_print
-
-        print("Login successful!");
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const WidgetTree(),
-          ),
-        );
-      } else {
-        // Failed login, show an error message or handle it accordingly
-        print("Login failed");
-      }
+    if (email == "therapist@gmail.com") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TherapistWidgetTree(),
+        ),
+      );
     } else {
-      // Invalid email, show an error message or handle it accordingly
-      print("Invalid email");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const WidgetTree(),
+        ),
+      );
     }
   }
 

@@ -53,6 +53,12 @@ dependencies:
   camera: ^0.10.5+3
   path_provider: ^2.1.0
   path: ^1.8.3
+  flutter_rating_stars: ^1.0.3+4
+  flutter_map: ^5.0.0
+  latlong2: ^0.9.0
+  url_launcher: ^6.1.12
+  fl_chart: ^0.63.0
+  pie_chart: ^5.3.2
 
 dev_dependencies:
   flutter_test:
@@ -79,21 +85,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - lib/assets/img/
-      - lib/assets/img/book.png 
-      - lib/assets/img/calendar.png 
-      - lib/assets/img/chat_logo.png 
-      - lib/assets/img/chatbot-data.png 
-      - lib/assets/img/doctor.png 
-      - lib/assets/img/exam.png 
-      - lib/assets/img/facebook.png 
-      - lib/assets/img/google.png 
-      - lib/assets/img/logo.png 
-      - lib/assets/img/openai_logo.jpg 
-      - lib/assets/img/person.png 
-      - lib/assets/img/progress.png 
-      - lib/assets/img/TERAPI.png 
-      - lib/assets/img/therapist-1.png
-      - lib/assets/img/therapist-2.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

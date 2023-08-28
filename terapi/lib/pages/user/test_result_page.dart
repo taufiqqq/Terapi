@@ -9,22 +9,16 @@ class TestResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.popUntil(context, ModalRoute.withName('/'));
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(title: Text('Result')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(testName),
-              Text(result),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Result')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(testName),
+            Text(result),
+          ],
         ),
       ),
     );

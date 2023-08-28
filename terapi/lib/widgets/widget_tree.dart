@@ -9,6 +9,7 @@ import '../pages/user/profile_page.dart';
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
 
+
   @override
   State<WidgetTree> createState() => _WidgetTreeState();
 }
@@ -16,7 +17,7 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   int index = 0;
 
-  List<Widget> pages = const [
+  List<Widget> pages =  [
     HomePage(),
     ChatPage(),
     BookingPage(),

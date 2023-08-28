@@ -130,7 +130,7 @@ class _LoveLanguageTestState extends State<LoveLanguageTest> {
               ),
             );
           } else {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>

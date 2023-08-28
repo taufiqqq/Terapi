@@ -3,29 +3,30 @@ import 'package:flutter/material.dart';
 import '../../widgets/chat_sample.dart';
 
 class ManualScreen extends StatelessWidget {
-  const ManualScreen({super.key});
-
+  ManualScreen({super.key, required this.imagepath, required this.drName});
+  final String imagepath;
+  final String drName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(70),
         child: AppBar(
           backgroundColor: Colors.grey,
           leadingWidth: 30,
-          title: const Padding(
-            padding: EdgeInsets.only(top: 5),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 5),
             child: Row(
               children: [
                 CircleAvatar(
                   radius: 25,
-                  backgroundImage: AssetImage("lib/assets/img/TERAPI.png"),
+                  backgroundImage: AssetImage(imagepath),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
+                 Padding(
+                  padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    "Dr Name",
-                    style: TextStyle(color: Colors.white),
+                    drName,
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ],
@@ -45,8 +46,8 @@ class ManualScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: 10,
-        padding: EdgeInsets.only(top: 8, right: 15, left: 15, bottom: 80),
-        itemBuilder: (context, index) => ChatSample(),
+        padding: const EdgeInsets.only(top: 8, right: 15, left: 15, bottom: 80),
+        itemBuilder: (context, index) => const ChatSample(),
       ),
       bottomSheet: Container(
         height: 65,
@@ -66,22 +67,22 @@ class ManualScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(left: 8),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               child: Container(
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: Row(
                   children: [
                     Expanded(
                       child: TextFormField(
-                        decoration: InputDecoration.collapsed(
+                        decoration: const InputDecoration.collapsed(
                           hintText: "Enter Something",
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 10),
                       child: Icon(
                         Icons.send,

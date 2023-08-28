@@ -100,7 +100,7 @@ class _DassTestState extends State<DassTest> {
             );
           } else {
             // TODO: Process the answers
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:terapi/models/therapist.dart';
 import 'package:terapi/pages/user/appointment_detail_page.dart';
 
+import 'manual_chat_screen.dart';
+
 class TherapistPage extends StatefulWidget {
   final Therapist therapist;
 
@@ -115,20 +117,37 @@ class AboutTherapist extends StatelessWidget {
                         softWrap: true,
                       ),
                       SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.chat,
-                            color: Color.fromARGB(255, 33, 150, 243),
-                            size: 15,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text('Chat Now',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 33, 150, 243))),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ManualScreen(
+                                  imagepath: therapist.gender == 'Male'
+                                      ? 'lib/assets/img/therapist-2.jpg'
+                                      : 'lib/assets/img/therapist-1.png',
+                                  drName: therapist.name,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.chat,
+                              color: Color.fromARGB(255, 33, 150, 243),
+                              size: 15,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('Chat Now',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 33, 150, 243))),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 10),
                       Row(

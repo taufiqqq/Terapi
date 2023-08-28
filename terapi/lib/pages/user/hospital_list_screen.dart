@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:terapi/pages/user/hospital_page.dart';
 
 import '../../models/hospital_dataset.dart';
-import 'hospital_service_detail.dart';
 
 class HospitalListScreen extends StatefulWidget {
   @override
@@ -222,7 +222,7 @@ class _HospitalListScreenState extends State<HospitalListScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                HospitalServiceDetail(hospital: hospital),
+                                HospitalPage(hospital: hospital),
                           ),
                         );
                       },
