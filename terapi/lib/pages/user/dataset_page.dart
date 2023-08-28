@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 import '../../widgets/bar_chart.dart';
 
 class SetDataPage extends StatefulWidget {
-  const SetDataPage({Key? key}) : super(key: key);
+  SetDataPage({Key? key}) : super(key: key);
+  int? initialSliding;
+  SetDataPage.basic({Key? key, required this.initialSliding}) : super(key: key);
 
   @override
   State<SetDataPage> createState() => _SetDataPageState();
 }
 
 class _SetDataPageState extends State<SetDataPage> {
-  int? sliding = 0;
+  @override
+  void initState() {
+    super.initState();
 
+    if (widget.initialSliding != null) sliding = widget.initialSliding;
+  }
+
+  int? sliding = 0;
   Widget buildSegmentedControlContent() {
     if (sliding == 0) {
       return Column(
@@ -359,54 +367,6 @@ class _SetDataPageState extends State<SetDataPage> {
     } else if (sliding == 1) {
       return Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: 350,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: BarChart(
-                        colors: [
-                          Colors.deepOrange.shade100,
-                          Colors.deepOrange.shade200,
-                          Colors.deepOrange.shade300,
-                          Colors.deepOrange.shade400,
-                        ],
-                        title: 'Number of suicides in Malaysia',
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              "Source: WHO, Global Health Estimates (2020)",
-              style: TextStyle(fontSize: 13),
-            ),
-          ),
           const Padding(
             padding: EdgeInsets.only(left: 25.0, right: 10),
             child: Text(
@@ -675,7 +635,55 @@ class _SetDataPageState extends State<SetDataPage> {
                 )
               ],
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 350,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: BarChart(
+                        colors: [
+                          Colors.deepOrange.shade100,
+                          Colors.deepOrange.shade200,
+                          Colors.deepOrange.shade300,
+                          Colors.deepOrange.shade400,
+                        ],
+                        title: 'Number of suicides in Malaysia',
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              "Source: WHO, Global Health Estimates (2020)",
+              style: TextStyle(fontSize: 13),
+            ),
+          ),
         ],
       );
     } else {

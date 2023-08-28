@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/booking_page.dart';
-import 'package:terapi/pages/user/pie_chart.dart';
 import 'package:terapi/pages/user/progress.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/pages/user/therapist_page.dart';
@@ -94,19 +93,6 @@ class HomePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => HospitalListScreen()),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.dataset_sharp),
-                title: const Text(
-                  'Pie Chart',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PieChartPage()),
                   );
                 },
               ),
@@ -272,6 +258,64 @@ class HomePage extends StatelessWidget {
                 left: 20,
               ),
               child: Text(
+                "Suggested Statistics",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SetDataPage()),
+                      );
+                    },
+                    child: SuggestArticle(
+                        box: ItemClass(
+                            title: "Burden of Disease",
+                            imagePath: "lib/assets/img/background-1.png")),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SetDataPage.basic(initialSliding: 1,)),
+                      );
+                    },
+                    child: SuggestArticle(
+                        box: ItemClass(
+                            title: "Malaysia's Mental Illness",
+                            imagePath: "lib/assets/img/background-2.png")),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HospitalListScreen()),
+                      );
+                    },
+                    child: SuggestArticle(
+                        box: ItemClass(
+                            title: "Hospital Lists",
+                            imagePath: "lib/assets/img/background-3.png")),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+              ),
+              child: Text(
                 "Suggested Articles",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
@@ -284,15 +328,15 @@ class HomePage extends StatelessWidget {
                   SuggestArticle(
                       box: ItemClass(
                           title: "Best Breathing Exercise",
-                          imagePath: "lib/assets/img/background-1.png")),
+                          imagePath: "lib/assets/img/background-3.png")),
                   SuggestArticle(
                       box: ItemClass(
                           title: "Practicing Mindfulness",
-                          imagePath: "lib/assets/img/background-2.png")),
+                          imagePath: "lib/assets/img/background-5.png")),
                   SuggestArticle(
                       box: ItemClass(
                           title: "Positive Psychology",
-                          imagePath: "lib/assets/img/background-3.png")),
+                          imagePath: "lib/assets/img/background-1.png")),
                   const SizedBox(
                     height: 50,
                   ),

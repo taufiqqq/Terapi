@@ -144,15 +144,11 @@ class _CareerTestState extends State<CareerTest> {
                     builder: (context) => (TestResult(
                         testName: 'Career',
                         result:
-                            'Any career that related to interaction\nFor example, consultant and product manager'))));
+                            'Social oriented career\nYou should try to be a part of career that related to interaction\nFor example, consultant, teacher and product manager.'))));
           }
         },
         child: Icon(Icons.send),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(home: CareerTest()));
 }

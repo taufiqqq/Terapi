@@ -1,5 +1,8 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:terapi/pages/therapist/appointment_page.dart';
+import 'package:terapi/pages/therapist/my_review.dart';
+import 'package:terapi/pages/therapist/pie_chart.dart';
 import 'package:terapi/widgets/upcoming_box.dart';
 
 import '../../models/home_class.dart';
@@ -100,8 +103,9 @@ class TherapistHomePage extends StatelessWidget {
                   fillColor: Colors.grey.shade100,
                   contentPadding: EdgeInsets.all(8),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.grey.shade100)),
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Colors.grey.shade100),
+                  ),
                 ),
               ),
             ),
@@ -115,13 +119,73 @@ class TherapistHomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TherapistAppointmentPage()),
+                          builder: (context) => TherapistAppointmentPage(),
+                        ),
                       );
                     },
                     child: CircleIcon(
                       box: ItemClass(
                           title: "Appointment",
                           imagePath: "lib/assets/img/calendar.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PieChartPage()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Statistics",
+                          imagePath: "lib/assets/img/progress.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ViewAllReviewsPage()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Reviews",
+                          imagePath: "lib/assets/img/exam.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TherapistAppointmentPage(
+                              initialStatus: FilterStatus.past),
+                        ),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Customers",
+                          imagePath: "lib/assets/img/doctor.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TherapistAppointmentPage(
+                              initialStatus: FilterStatus.past),
+                        ),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Earnings",
+                          imagePath: "lib/assets/img/money.png"),
                     ),
                   ),
                 ],

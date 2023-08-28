@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/book_page.dart';
 
 import '../login_page.dart';
+import 'activity_log.dart';
 import 'appointment_page.dart';
 import 'booking_page.dart';
 
@@ -219,7 +220,10 @@ class ProfilePage extends StatelessWidget {
                         'Appointments', 'lib/assets/img/calendarblack.png'),
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ActivityLogPage()));
                       // Navigate to the respective page for this row
                     },
                     child: buildClickableRow(

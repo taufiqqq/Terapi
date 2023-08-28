@@ -141,15 +141,11 @@ class _PersonalityTestState extends State<PersonalityTest> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        (TestResult(testName: 'Personality', result: 'INFJ'))));
+                        (TestResult(testName: 'Personality', result: 'INFJ\nYou are an introvert\nWhile you are introvert, you should still try interact with people. Good luck !'))));
           }
         },
         child: Icon(Icons.send),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(home: PersonalityTest()));
 }
