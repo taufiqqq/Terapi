@@ -1,23 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:terapi/pages/user/appointment_page.dart';
-import 'package:terapi/widgets/widget_tree.dart';
+
 import '../../models/therapist.dart';
 
-class AppointmentDetail extends StatefulWidget {
+class RescheduleAppointment extends StatefulWidget {
+  RescheduleAppointment(
+      {super.key,
+      required this.therapist,
+      required this.date,
+      required this.time});
+
+  final String date;
+  final String time;
   final Therapist therapist;
 
-  const AppointmentDetail({Key? key, required this.therapist})
-      : super(key: key);
-
   @override
-  State<AppointmentDetail> createState() => _AppointmentDetailState();
+  State<RescheduleAppointment> createState() => _RescheduleAppointmentState();
 }
 
-class _AppointmentDetailState extends State<AppointmentDetail> {
-  DateTime _date = DateTime.now();
-  TimeOfDay _time = TimeOfDay.now();
+class _RescheduleAppointmentState extends State<RescheduleAppointment> {
+  late DateTime _date;
+  late TimeOfDay _time;
   String _method = 'Online';
   String _reasons = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _date and _time using widget properties
+    _date = DateTime.parse(widget.date);
+    String timeString = widget.time;
+    List<String> parts = timeString.split(':');
+    int hour = int.parse(parts[0]);
+    int minute = int.parse(parts[1]);
+    _time = TimeOfDay(hour: hour, minute: minute);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +98,7 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
                 onPressed: () {
                   _saveAppointment();
                 },
-                child: Text('Confirm'))
+                child: Text('Update'))
           ],
         ),
       ),
@@ -202,8 +218,7 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
       print(_formattedTime(_time));
       print(widget.therapist.therapistId);
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WidgetTree()));
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>AppointmentPage()));
+      Navigator.pop(context);
     } else {
       // Display an error message using a Snackbar
       ScaffoldMessenger.of(context).showSnackBar(

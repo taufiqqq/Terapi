@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class Appointment {
-  final String uid;
-  final String therapistId;
-  final DateTime date;
-  final TimeOfDay time;
-  final String status;
+  String uid;
+  String therapistId;
+  DateTime date;
+  TimeOfDay time;
+  String status;
 
   Appointment({
     String? uid,

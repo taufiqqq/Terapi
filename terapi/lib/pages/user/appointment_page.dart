@@ -7,6 +7,7 @@ import 'package:terapi/pages/user/view_review.dart';
 
 import '../../models/therapist.dart';
 import '../../providers/therapist_providers.dart';
+import 'appointment_reschedule.dart';
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({Key? key}) : super(key: key);
@@ -212,7 +213,23 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                         style: TextStyle(color: Colors.red)),
                                   ),
                                   OutlinedButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      Therapist therapist =
+                                          TherapistProvider.getTherapistById(
+                                              schedule['therapistId']);
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              RescheduleAppointment(
+                                            therapist: therapist,
+                                            date: schedule['date'],
+                                            time: schedule['time'],
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     child: const Text('Reschedule'),
                                   ),
                                   FilledButton(
@@ -240,8 +257,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              ViewResult(therapist: therapist, date : schedule['date']),
+                                          builder: (context) => ViewResult(
+                                              therapist: therapist,
+                                              date: schedule['date']),
                                         ),
                                       );
                                     },
@@ -250,16 +268,19 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     ),
                                   ),
                                   OutlinedButton(
-                                    onPressed: () {Therapist therapist =
+                                    onPressed: () {
+                                      Therapist therapist =
                                           TherapistProvider.getTherapistById(
                                               schedule['therapistId']);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              ReviewTherapist(therapist: therapist, date : schedule['date']),
+                                          builder: (context) => ReviewTherapist(
+                                              therapist: therapist,
+                                              date: schedule['date']),
                                         ),
-                                      );},
+                                      );
+                                    },
                                     child: const Text(
                                       'Review Therapist',
                                     ),
