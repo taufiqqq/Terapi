@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/booking_page.dart';
+import 'package:terapi/pages/user/progress.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/pages/user/therapist_page.dart';
 import 'package:terapi/widgets/upcoming_box.dart';
@@ -166,10 +167,18 @@ class HomePage extends StatelessWidget {
                           title: "Test", imagePath: "lib/assets/img/exam.png"),
                     ),
                   ),
-                  CircleIcon(
-                    box: ItemClass(
-                        title: "Progress",
-                        imagePath: "lib/assets/img/progress.png"),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyProgress()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Progress",
+                          imagePath: "lib/assets/img/progress.png"),
+                    ),
                   ),
                   GestureDetector(
                     child: CircleIcon(
