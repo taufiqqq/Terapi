@@ -179,7 +179,7 @@ class HomePage extends StatelessWidget {
                     child: CircleIcon(
                       box: ItemClass(
                           title: "Posts",
-                          imagePath: "lib/assets/img/progress.png"),
+                          imagePath: "lib/assets/img/post.png"),
                     ),
                   ),
                   GestureDetector(

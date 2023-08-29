@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:terapi/pages/therapist/appointment_page.dart';
 import 'package:terapi/pages/therapist/my_review.dart';
 import 'package:terapi/pages/therapist/pie_chart.dart';
+import 'package:terapi/pages/therapist/therapist_money.dart';
+import 'package:terapi/pages/therapist/therapist_post.dart';
 import 'package:terapi/widgets/upcoming_box.dart';
 
 import '../../models/home_class.dart';
@@ -146,6 +148,19 @@ class TherapistHomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
+                        MaterialPageRoute(builder: (context) => TherapistPost()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Posts",
+                          imagePath: "lib/assets/img/post.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
                         MaterialPageRoute(
                             builder: (context) => ViewAllReviewsPage()),
                       );
@@ -177,8 +192,7 @@ class TherapistHomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TherapistAppointmentPage(
-                              initialStatus: FilterStatus.past),
+                          builder: (context) => TherapistMoney(),
                         ),
                       );
                     },
