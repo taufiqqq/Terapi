@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/booking_page.dart';
@@ -14,6 +16,7 @@ import '../../providers/therapist_providers.dart';
 import '../../widgets/circle_icon.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
+import '../login_page.dart';
 import 'dataset_page.dart';
 import 'hospital_list_screen.dart';
 
@@ -97,6 +100,32 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text(
+                  'Log Out',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  try {
+                    FirebaseAuth.instance.signOut();
+
+                    final GoogleSignIn googleSignIn = GoogleSignIn();
+                    googleSignIn.signOut();
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                      (route) =>
+                          false, // Remove all previous routes from the stack
+                    );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(e.toString())));
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -178,8 +207,7 @@ class HomePage extends StatelessWidget {
                     },
                     child: CircleIcon(
                       box: ItemClass(
-                          title: "Posts",
-                          imagePath: "lib/assets/img/post.png"),
+                          title: "Posts", imagePath: "lib/assets/img/post.png"),
                     ),
                   ),
                   GestureDetector(

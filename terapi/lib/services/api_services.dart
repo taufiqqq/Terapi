@@ -37,30 +37,29 @@ class ApiService {
   static Future<List<ChatModel>> sendMessage(
       {required String message, required String modelId}) async {
     try {
-      log("model $modelId");
-      var response = await http.post(
-        Uri.parse("$BASE_URL/completions"),
+      Map<String, dynamic> body = {
+        "model": modelId,
+        "messages": [
+          {"role": "user", "content": message}
+        ],
+        "max_tokens": 100,
+      };
+
+      final response = await http.post(
+        Uri.parse("$BASE_URL/chat/completions"),
         headers: {
-          'Authorization': 'Bearer $API_KEY',
+          'Authorization': 'Bearer ${API_KEY}',
           "Content-Type": "application/json"
         },
-        body: jsonEncode(
-          {
-            "model": modelId,
-            "messages": [
-              {
-                "role": "user",
-                "content": message,
-              }
-            ]
-          },
-        ),
+        body: jsonEncode(body),
       );
+
+      print(response.body);
 
       Map jsonResponse = jsonDecode(response.body);
 
       if (jsonResponse['error'] != null) {
-        // print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
+        print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
         throw HttpException(jsonResponse['error']["message"]);
       }
 
@@ -69,7 +68,7 @@ class ApiService {
         chatList = List.generate(
           jsonResponse["choices"].length,
           (index) => ChatModel(
-            msg: jsonResponse["choices"][index]["text"],
+            msg: jsonResponse["choices"][index]['message']["content"],
             chatIndex: 1,
           ),
         );

@@ -43,12 +43,14 @@ class _GPTScreenState extends State<GPTScreen> {
   // List<ChatModel> chatList = [];
   @override
   Widget build(BuildContext context) {
-    final modelsProvider = Provider.of<ModelsProvider>(
-      context,
-    );
     final chatProvider = Provider.of<ChatProvider>(
       context,
     );
+    final modelsProvider = Provider.of<ModelsProvider>(
+      context,
+    );
+    
+
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -166,6 +168,7 @@ class _GPTScreenState extends State<GPTScreen> {
       setState(() {});
     } catch (error) {
       log("error $error");
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: TextWidget(
           label: error.toString(),
