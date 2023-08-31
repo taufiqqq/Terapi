@@ -235,32 +235,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              Container(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Login Manual"),
-                          content: Text(
-                              "Just click login to access user view. \nTo access therapist view, input therapist@gmail.com in email, and click log in.\nNo password is needed (prototype)"),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context); // Close the dialog
-                              },
-                              child: Text("OK"),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: const Text('Login/Sign Up Manual'),
-                ),
-              ),
               const SizedBox(height: 100),
               ElevatedButton(
                 onPressed: _handleGoogleSignIn,
