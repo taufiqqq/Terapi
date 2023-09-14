@@ -152,7 +152,7 @@ class TherapistMoney extends StatelessWidget {
                         value:
                             40, // Placeholder value, replace with actual value
                         color: Colors.green,
-                        title: 'Permium User\n Subscription', // Replace with actual source name
+                        title: 'Premium User\n Subscription', // Replace with actual source name
                         radius: 100, // Adjust the size of the pie chart
                       ),
                       // Add more sections for other income sources

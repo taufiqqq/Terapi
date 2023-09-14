@@ -21,7 +21,7 @@ class PieChartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("PieChart"),
+        title: Text("Therapy Statistics"),
       ),
       body: SingleChildScrollView(
         child: Column(

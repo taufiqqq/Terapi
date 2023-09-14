@@ -104,7 +104,7 @@ class _DassTestState extends State<DassTest> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        (TestResult(testName: 'DASS', result: 'Good'))));
+                        (TestResult(testName: 'DASS', result: '70/100\nGood\nYour mental health is in quite good condition'))));
           }
         },
         child: Icon(Icons.send),
@@ -142,8 +142,4 @@ class _DassTestState extends State<DassTest> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(home: DassTest()));
 }

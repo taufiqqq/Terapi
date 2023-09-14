@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:terapi/pages/user/appointment_page.dart';
 import 'package:terapi/pages/user/book_page.dart';
 import 'package:terapi/pages/user/booking_page.dart';
-import 'package:terapi/pages/user/pie_chart.dart';
+import 'package:terapi/pages/user/post.dart';
 import 'package:terapi/pages/user/progress.dart';
 import 'package:terapi/pages/user/test_page.dart';
 import 'package:terapi/pages/user/therapist_page.dart';
@@ -14,6 +16,7 @@ import '../../providers/therapist_providers.dart';
 import '../../widgets/circle_icon.dart';
 import '../../widgets/suggested_article.dart';
 import '../../widgets/therapist_box.dart';
+import '../login_page.dart';
 import 'dataset_page.dart';
 import 'hospital_list_screen.dart';
 
@@ -98,16 +101,29 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.dataset_sharp),
+                leading: const Icon(Icons.logout),
                 title: const Text(
-                  'Pie Chart',
+                  'Log Out',
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PieChartPage()),
-                  );
+                  try {
+                    FirebaseAuth.instance.signOut();
+
+                    final GoogleSignIn googleSignIn = GoogleSignIn();
+                    googleSignIn.signOut();
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                      (route) =>
+                          false, // Remove all previous routes from the stack
+                    );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(e.toString())));
+                  }
                 },
               ),
             ],
@@ -173,18 +189,6 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TestPage()),
-                      );
-                    },
-                    child: CircleIcon(
-                      box: ItemClass(
-                          title: "Test", imagePath: "lib/assets/img/exam.png"),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
                         MaterialPageRoute(builder: (context) => MyProgress()),
                       );
                     },
@@ -192,6 +196,30 @@ class HomePage extends StatelessWidget {
                       box: ItemClass(
                           title: "Progress",
                           imagePath: "lib/assets/img/progress.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserPost()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Posts", imagePath: "lib/assets/img/post.png"),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TestPage()),
+                      );
+                    },
+                    child: CircleIcon(
+                      box: ItemClass(
+                          title: "Test", imagePath: "lib/assets/img/exam.png"),
                     ),
                   ),
                   GestureDetector(
@@ -272,6 +300,67 @@ class HomePage extends StatelessWidget {
                 left: 20,
               ),
               child: Text(
+                "Suggested Statistics",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SetDataPage()),
+                      );
+                    },
+                    child: SuggestArticle(
+                        box: ItemClass(
+                            title: "Burden of Disease",
+                            imagePath: "lib/assets/img/background-1.png")),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SetDataPage.basic(
+                                  initialSliding: 1,
+                                )),
+                      );
+                    },
+                    child: SuggestArticle(
+                        box: ItemClass(
+                            title: "Malaysia's Mental Illness",
+                            imagePath: "lib/assets/img/background-2.png")),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HospitalListScreen()),
+                      );
+                    },
+                    child: SuggestArticle(
+                        box: ItemClass(
+                            title: "Hospital Lists",
+                            imagePath: "lib/assets/img/background-3.png")),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+              ),
+              child: Text(
                 "Suggested Articles",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
@@ -284,15 +373,15 @@ class HomePage extends StatelessWidget {
                   SuggestArticle(
                       box: ItemClass(
                           title: "Best Breathing Exercise",
-                          imagePath: "lib/assets/img/background-1.png")),
+                          imagePath: "lib/assets/img/background-3.png")),
                   SuggestArticle(
                       box: ItemClass(
                           title: "Practicing Mindfulness",
-                          imagePath: "lib/assets/img/background-2.png")),
+                          imagePath: "lib/assets/img/background-5.png")),
                   SuggestArticle(
                       box: ItemClass(
                           title: "Positive Psychology",
-                          imagePath: "lib/assets/img/background-3.png")),
+                          imagePath: "lib/assets/img/background-1.png")),
                   const SizedBox(
                     height: 50,
                   ),

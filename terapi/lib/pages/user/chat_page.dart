@@ -34,7 +34,7 @@ class _ChatPageState extends State<ChatPage> {
                 radius: 30,
               ),
               title: Text(
-                "Tiana (AI therapy help)",
+                "Tiara (AI therapy help)",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Row(

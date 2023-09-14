@@ -134,15 +134,11 @@ class _LoveLanguageTestState extends State<LoveLanguageTest> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        (TestResult(testName: 'Love Language', result: 'Words of Affirmation'))));
+                        (TestResult(testName: 'Love Language', result: 'Words of Affirmation\nYou are more likely to get affected by words of affirmation, affection and love language from your partner'))));
           }
         },
         child: Icon(Icons.send),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(home: LoveLanguageTest()));
 }

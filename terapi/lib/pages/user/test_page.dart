@@ -171,7 +171,3 @@ class TestOptionCard extends StatelessWidget {
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(home: TestPage()));
-}

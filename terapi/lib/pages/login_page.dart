@@ -262,7 +262,7 @@ class _LoginPageState extends State<LoginPage> {
                       ' Sign Up',
                       style: TextStyle(
                           fontSize: 15.0,
-                          color: Color.fromARGB(255, 0, 62, 113)),
+                          color: Colors.white),
                     ),
                   ),
                 ],
