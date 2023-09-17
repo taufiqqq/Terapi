@@ -9,7 +9,7 @@
             "cwd": "terapi",
             "request": "launch",
             "type": "dart",
-            "program": "terapi/lib/main.dart" 
+            "program": "lib/main.dart" 
         },
         {
             "name": "terapi (profile mode)",
