@@ -12,15 +12,6 @@ void main() async {
   AppointmentProvider appointment = AppointmentProvider();
   appointment.initialize();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: 'AIzaSyA46PHWkXeJ5c4kpozRGSH1wceosKeJDdw',
-      appId: '1:251377269349:android:e9789c974029bc6f5ae48c',
-      messagingSenderId:
-          '251377269349-dii7tvm3qbu2jtnh2jfpc7uhra84q61g.apps.googleusercontent.com',
-      projectId: 'terapi-flutter',
-    ),
-  );
 
   runApp(const MyApp());
 }
