@@ -2,7 +2,7 @@
 Click https://terapi.vercel.app/ for our submission for CHIPTA2023 hackathon
 
 The product is just a prototype, as the requirement of hackathon is only a prototype, not fully functioning app <br>
-Only need to continue some modules and the app can be published
+Only need to continue some modules and the app can be published<br>
 OpenAI key is also not working right now, because it is quite expensive to subscribe to it RM20/month.
 <br><br>
 **********************************************
